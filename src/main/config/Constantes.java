@@ -11,6 +11,8 @@ public class Constantes {
 	public static String MOVER_CAZADOR = "Soy cazador y me muevo con nivel de agresividad ";
 	public static String CONVERTIR_CAZADOR_A_PRESA = "Soy cazador y me convierto en presa";
 	public static String CONVERTIR_CAZADOR_A_CAZADOR = "Ya soy cazador";
+	public static String AUMENTAR_IRA_CAZADOR = "Aumentando ira del cazador";
+	public static String AUMENTAR_IRA_MAX_CAZADOR = "Cazador ha llegado a su maxima ira";
 
 	
 	public static String MUERTO = "Muerto";
@@ -20,7 +22,6 @@ public class Constantes {
 	public static String REVIVIR_MUERTO = "Estoy muerto y me reviven";
 	public static String CONVERTIR_MUERTO_A_PRESA = "Estoy muerto y no puedo ser presa";
 	public static String CONVERTIR_MUERTO_A_CAZADOR = "Estoy muerto y vuelvo a ser cazador";
-
 	
 	public static String PRESA = "Presa";
 	public static String MOVER_PRESA = "Soy presa y me escapo";

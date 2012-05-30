@@ -14,14 +14,17 @@ public class EstadoCazador implements Estado{
 	}
 	
 	@Override
-	public void mover(Fantasma fantasma) {
-		System.out.println(Constantes.MOVER_CAZADOR + fantasma.getIra());
+	public String mover(Fantasma fantasma) {
+		return (Constantes.MOVER_CAZADOR + fantasma.getIra());
 	}
 
 	@Override
-	public void incrementarIra(Fantasma fantasma) {
+	public String incrementarIra(Fantasma fantasma) {
 		if (fantasma.getIra() < Constantes.IRA_MAXIMA){
 			fantasma.setIra(fantasma.getIra()+1);
+			return Constantes.AUMENTAR_IRA_CAZADOR;
+		} else {
+			return Constantes.AUMENTAR_IRA_MAX_CAZADOR;
 		}
 	}
 

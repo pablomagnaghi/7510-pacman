@@ -2,9 +2,9 @@ package main.model;
 
 public interface Estado {
 
-	public void incrementarIra(Fantasma fantasma);
+	public String incrementarIra(Fantasma fantasma);
 
-	public void mover(Fantasma fantasma);
+	public String mover(Fantasma fantasma);
 	
 	public Estado getNextState(Integer evento);
 
