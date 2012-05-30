@@ -1,6 +1,7 @@
 package main.model;
 
 import main.config.Constantes;
+import main.config.Evento;
 import main.states.EstadoCazador;
 
 public class Fantasma {
@@ -9,7 +10,7 @@ public class Fantasma {
 	private Integer ira;
 	
 	public Fantasma(){
-		this.estado = new EstadoCazador();
+		this.estado = EstadoCazador.getInstance();
 		this.ira = Constantes.IRA_MINIMA;
 	}
 	
@@ -22,15 +23,15 @@ public class Fantasma {
 	}
 	
 	public void eliminar(){
-		cambiarEstado(this.estado.eliminar());
+		cambiarEstado(this.estado.getNextState(Evento.ELIMINAR));
 	}
 	
 	public void convertirEnPresa(){
-		cambiarEstado(this.estado.convertirEnPresa());
+		cambiarEstado(this.estado.getNextState(Evento.CONVERTIR_PRESA));
 	}
 	
 	public void convertirEnCazador(){
-		cambiarEstado(this.estado.convertirEnCazador(this));
+		cambiarEstado(this.estado.getNextState(Evento.CONVERTIR_CAZADOR));
 	}
 	
 	public void cambiarEstado(Estado nuevoEstado){
