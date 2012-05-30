@@ -4,13 +4,9 @@ public interface Estado {
 
 	public void incrementarIra(Fantasma fantasma);
 
-	void mover(Fantasma fantasma);
-
-	public Estado eliminar();
+	public void mover(Fantasma fantasma);
 	
-	public Estado convertirEnCazador(Fantasma fantasma);
+	public Estado getNextState(Integer evento);
 
-	public Estado convertirEnPresa();
-	
 	public String getNombre();
 }

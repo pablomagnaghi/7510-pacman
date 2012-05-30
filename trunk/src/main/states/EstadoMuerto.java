@@ -1,11 +1,18 @@
 package main.states;
 
 import main.config.Constantes;
+import main.config.Evento;
 import main.model.Estado;
 import main.model.Fantasma;
 
 public class EstadoMuerto implements Estado{
 
+	private static EstadoMuerto instance = null;
+	
+	private EstadoMuerto(){
+		
+	}
+	
 	@Override
 	public void mover(Fantasma fantasma) {
 		System.out.println(Constantes.MOVER_MUERTO);		
@@ -17,27 +24,33 @@ public class EstadoMuerto implements Estado{
 	}
 
 	@Override
-	public Estado eliminar() {
-		System.out.println(Constantes.ELIMINAR_MUERTO);
-		return null;
-	}
-
-	@Override
 	public String getNombre() {
 		return Constantes.MUERTO;
 	}
 
 	@Override
-	public Estado convertirEnCazador(Fantasma fantasma) {
-		System.out.println(Constantes.CONVERTIR_MUERTO_A_CAZADOR);
-		fantasma.setIra(Constantes.IRA_MINIMA);
-		return new EstadoCazador();
+	public Estado getNextState(Integer evento) {
+		if (Evento.REVIVIR.equals(evento)){
+			System.out.println(Constantes.REVIVIR_PRESA);
+			return EstadoCazador.getInstance();
+		}
+		if (Evento.CONVERTIR_CAZADOR.equals(evento)){
+			System.out.println(Constantes.CONVERTIR_MUERTO_A_CAZADOR);
+		}
+		if (Evento.CONVERTIR_PRESA.equals(evento)){
+			System.out.println(Constantes.CONVERTIR_MUERTO_A_PRESA);
+		}
+		if (Evento.ELIMINAR.equals(evento)){
+			System.out.println(Constantes.ELIMINAR_CAZADOR);
+		}
+		return instance;
 	}
-
-	@Override
-	public Estado convertirEnPresa() {
-		System.out.println(Constantes.CONVERTIR_MUERTO_A_PRESA);
-		return null;
+	
+	public static EstadoMuerto getInstance(){
+		if (instance == null){
+			instance = new EstadoMuerto();
+		}
+		return instance;
 	}
 
 }
