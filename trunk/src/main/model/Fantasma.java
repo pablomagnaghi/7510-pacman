@@ -10,33 +10,33 @@ public class Fantasma {
 	private Integer ira;
 	
 	public Fantasma(){
-		this.estado = EstadoCazador.getInstance();
+		this.setEstado(EstadoCazador.getInstance());
 		this.ira = Constantes.IRA_MINIMA;
 	}
 	
-	public void mover(){
-		this.estado.mover(this);
+	public String mover(){
+		return (this.getEstado().mover(this));
 	}
 	
-	public void incrementarIra(){
-		this.estado.incrementarIra(this);
+	public String incrementarIra(){
+		return (this.getEstado().incrementarIra(this));
 	}
 	
 	public void eliminar(){
-		cambiarEstado(this.estado.getNextState(Evento.ELIMINAR));
+		cambiarEstado(this.getEstado().getNextState(Evento.ELIMINAR));
 	}
 	
 	public void convertirEnPresa(){
-		cambiarEstado(this.estado.getNextState(Evento.CONVERTIR_PRESA));
+		cambiarEstado(this.getEstado().getNextState(Evento.CONVERTIR_PRESA));
 	}
 	
 	public void convertirEnCazador(){
-		cambiarEstado(this.estado.getNextState(Evento.CONVERTIR_CAZADOR));
+		cambiarEstado(this.getEstado().getNextState(Evento.CONVERTIR_CAZADOR));
 	}
 	
 	public void cambiarEstado(Estado nuevoEstado){
 		if (nuevoEstado != null){
-			this.estado = nuevoEstado;
+			this.setEstado(nuevoEstado);
 		}
 	}
 
@@ -49,8 +49,16 @@ public class Fantasma {
 	}
 	
 	public void mostrarFantasma(){
-		System.out.println("Fantasma " + this.estado.getNombre() 
+		System.out.println("Fantasma " + this.getEstado().getNombre() 
 				+ "con agresividad " + getIra());
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	private void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 	
 }
