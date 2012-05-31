@@ -38,6 +38,10 @@ public class Fantasma implements Observer{
 		}
 	}
 	
+	public void revivir(){
+		cambiarEstado(this.getEstado().getNextState(Evento.REVIVIR));
+	}
+	
 	public void convertirEnPresa(){
 		if (!this.isDead){
 			cambiarEstado(this.getEstado().getNextState(Evento.CONVERTIR_PRESA));
@@ -48,7 +52,7 @@ public class Fantasma implements Observer{
 		cambiarEstado(this.getEstado().getNextState(Evento.CONVERTIR_CAZADOR));
 	}
 	
-	public void cambiarEstado(Estado nuevoEstado){
+	private void cambiarEstado(Estado nuevoEstado){
 		if (nuevoEstado != null){
 			this.setEstado(nuevoEstado);
 		}
