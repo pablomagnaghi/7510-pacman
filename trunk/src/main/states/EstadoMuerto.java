@@ -31,7 +31,7 @@ public class EstadoMuerto implements Estado{
 	@Override
 	public Estado getNextState(Integer evento) {
 		if (Evento.REVIVIR.equals(evento)){
-			System.out.println(Constantes.REVIVIR_PRESA);
+			System.out.println(Constantes.REVIVIR_MUERTO);
 			return EstadoCazador.getInstance();
 		}
 		if (Evento.CONVERTIR_CAZADOR.equals(evento)){
@@ -41,7 +41,7 @@ public class EstadoMuerto implements Estado{
 			System.out.println(Constantes.CONVERTIR_MUERTO_A_PRESA);
 		}
 		if (Evento.ELIMINAR.equals(evento)){
-			System.out.println(Constantes.ELIMINAR_CAZADOR);
+			System.out.println(Constantes.ELIMINAR_MUERTO);
 		}
 		return instance;
 	}
