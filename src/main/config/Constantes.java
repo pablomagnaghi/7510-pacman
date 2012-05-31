@@ -4,6 +4,7 @@ public class Constantes {
 	
 	public static Integer IRA_MINIMA = 1;
 	public static Integer IRA_MAXIMA = 5;
+	public static Integer DEATH_TIME = 3000;
 	
 	public static String CAZADOR = "Cazador";
 	public static String ELIMINAR_CAZADOR = "No me podes comer, soy cazador";
@@ -30,6 +31,5 @@ public class Constantes {
 	public static String REVIVIR_PRESA = "Soy presa, no puedo revivir";
 	public static String CONVERTIR_PRESA_A_PRESA = "Soy presa no me puedo convertir en presa";
 	public static String CONVERTIR_PRESA_A_CAZADOR = "Soy presa y me muevo a convertir en cazador";
-
 	
 }
