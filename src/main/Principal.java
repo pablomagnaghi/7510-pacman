@@ -1,14 +1,22 @@
 package main;
 
-import main.model.Fantasma;
+import java.awt.EventQueue;
+
+import Controller.ControladorConsola;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		Fantasma f = new Fantasma();
-		f.mostrarFantasma();
-		f.convertirEnPresa();
-		f.eliminar();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ControladorConsola controlador = new ControladorConsola();
+					controlador.mostrarVista();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});		
 	}
 	
 }

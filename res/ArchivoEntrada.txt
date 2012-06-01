@@ -1,0 +1,2 @@
+TiempoMuerto = 3
+TiempoPresa = 5
