@@ -1,6 +1,6 @@
 package main.config;
 
-public class Evento {
+public abstract class Evento {
 	
 	public static Integer CONVERTIR_PRESA = 1;
 	public static Integer CONVERTIR_CAZADOR = 2;
