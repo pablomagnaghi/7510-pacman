@@ -44,7 +44,11 @@ public class PruebasFantasma {
 	@Test
 	public void pruebaRevivirFantasmaCazador() {
 		Fantasma f = new Fantasma();
-		f.revivir();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(f.getEstado().equals(EstadoCazador.getInstance()));
 	}
 	
@@ -76,7 +80,11 @@ public class PruebasFantasma {
 	public void pruebaRevivirFantasmaPresa() {
 		Fantasma f = new Fantasma();
 		f.convertirEnPresa();
-		f.revivir();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(f.getEstado().equals(EstadoPresa.getInstance()));
 	}
 	
@@ -86,7 +94,11 @@ public class PruebasFantasma {
 		f.convertirEnPresa();
 		f.eliminar();
 		assertTrue(f.getEstado().equals(EstadoMuerto.getInstance()));
-		f.revivir();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(f.getEstado().equals(EstadoCazador.getInstance()));
 	}
 	
@@ -117,7 +129,11 @@ public class PruebasFantasma {
 		f.convertirEnPresa();
 		f.eliminar();
 		assertTrue(f.getEstado().equals(EstadoMuerto.getInstance()));
-		f.revivir();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(f.getEstado().equals(EstadoCazador.getInstance()));
 	}
 	
