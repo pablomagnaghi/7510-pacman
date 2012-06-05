@@ -1,12 +1,12 @@
 package Controller;
 
 import main.config.Constantes;
-import main.model.Fantasma;
+import main.model.ControladorFantasma;
 import view.VistaConsola;
 
 public class ControladorConsola {
 
-	private Fantasma fantasma;
+	private ControladorFantasma controlador;
 	
 	public void mostrarVista() {
 		if (VistaConsola.getInstance().getControlador() == null){
@@ -17,48 +17,48 @@ public class ControladorConsola {
 	}
 	
 	public void manejarBtnComer(){
-		if (fantasma == null){
+		if (controlador == null){
 			System.out.println(Constantes.ERROR_FANTASMA_NO_INICIADO);
 		} else {
-			this.fantasma.eliminar();
+			this.controlador.eliminarFantasma();
 		}
 	}
 	
 	public void manejarBtnConvertirPresa(){
-		if (fantasma == null){
+		if (controlador == null){
 			System.out.println(Constantes.ERROR_FANTASMA_NO_INICIADO);
 		} else {
-			this.fantasma.convertirEnPresa();
+			this.controlador.convertirFantasmaEnPresa();
 		}
 	}
 
 	public void manejarBtnMover(){
-		if (fantasma == null){
+		if (controlador == null){
 			System.out.println(Constantes.ERROR_FANTASMA_NO_INICIADO);
 		} else {
-			System.out.println(this.fantasma.mover());
+			System.out.println(this.controlador.moverFantasma());
 		}
 	}
 
 	public void manejarBtnMostrar(){
-		if (fantasma == null){
+		if (controlador == null){
 			System.out.println(Constantes.ERROR_FANTASMA_NO_INICIADO);
 		} else {
-			this.fantasma.mostrarFantasma();
+			this.controlador.mostrarFantasma();
 		}
 	}
 
 	public void manejarBtnIncrementarIra(){
-		if (fantasma == null){
+		if (controlador == null){
 			System.out.println(Constantes.ERROR_FANTASMA_NO_INICIADO);
 		} else {
-			System.out.println(this.fantasma.incrementarIra());
+			System.out.println(this.controlador.incrementarIraFantasma());
 		}
 	}
 	
 	public void manejarBtnIniciar(){
-		if (this.fantasma == null){
-			this.fantasma = new Fantasma();
+		if (this.controlador == null){
+			this.controlador = new ControladorFantasma();
 		} else {
 			System.out.println(Constantes.FANTASMA_YA_INICIADO);
 		}
