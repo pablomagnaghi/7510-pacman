@@ -37,15 +37,15 @@ public class ControladorFantasma implements Observer{
 	public void eliminarFantasma() {
 		this.fantasma.eliminar();
 		if (this.fantasma.getEstado().getNombre().equals(Constantes.MUERTO)){
-			this.cronometroPresa.terminar();
-			this.cronometroMuerto.contar(this.tiempoMuerto);
+			this.cronometroPresa.parar();
+			this.cronometroMuerto.activar(this.tiempoMuerto);
 		}
 	}
 
 	public void convertirFantasmaEnPresa() {
 		this.fantasma.convertirEnPresa();
 		if (this.fantasma.getEstado().getNombre().equals(Constantes.PRESA)){
-			this.cronometroPresa.contar(this.tiempoPresa);
+			this.cronometroPresa.activar(this.tiempoPresa);
 		}
 	}
 
