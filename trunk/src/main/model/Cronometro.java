@@ -15,14 +15,14 @@ public class Cronometro extends Observable{
 		notifyObservers();
 	}
 	
-	public void contar(Integer tiempo) {
+	public void activar(Integer tiempo) {
 		if (this.reloj == null || !this.reloj.isAlive()){
 			reloj = new Reloj(this, tiempo);
 			reloj.start();
 		}
 	}
 	
-	public void terminar(){
+	public void parar(){
 		if (this.reloj != null && this.reloj.isAlive()){
 			this.reloj.parar();
 		}
