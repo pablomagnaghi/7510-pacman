@@ -4,11 +4,10 @@ import java.util.Observable;
 
 public class Cronometro extends Observable{
 
-	private Reloj relojPresa;
-	private Reloj relojMuerto;
+	private Reloj reloj;
 	
-	public Cronometro(Fantasma fantasma) {
-		this.addObserver(fantasma);
+	public Cronometro(ControladorFantasma controlador) {
+		this.addObserver(controlador);
 	}
 
 	private void terminarCuenta() {
@@ -16,18 +15,16 @@ public class Cronometro extends Observable{
 		notifyObservers();
 	}
 	
-	public void contarPresa(Integer tiempo) {
-		if (this.relojPresa == null || !this.relojPresa.isAlive()){
-			relojPresa = new Reloj(this, tiempo);
-			relojPresa.start();
+	public void contar(Integer tiempo) {
+		if (this.reloj == null || !this.reloj.isAlive()){
+			reloj = new Reloj(this, tiempo);
+			reloj.start();
 		}
 	}
 	
-	public void contarMuerto(Integer tiempo){
-		if (this.relojMuerto == null || !this.relojMuerto.isAlive()){
-			relojMuerto = new Reloj(this, tiempo);
-			relojMuerto.start();
-			relojPresa.parar();
+	public void terminar(){
+		if (this.reloj != null && this.reloj.isAlive()){
+			this.reloj.parar();
 		}
 	}
 	
