@@ -2,7 +2,7 @@ package main.config;
 
 public abstract class Constantes {
 	
-	public static String ARCHIVO_CONFIGURACION			= "/home/luis/desarrollo/java/tecnicas-g5/res/ArchivoEntrada.txt";
+	public static String ARCHIVO_CONFIGURACION			= "./././res/ArchivoEntrada.txt";
 	public static Integer LINEAS_MAXIMA					= 16;
 	public static Integer IRA_MINIMA 					= 1;
 	public static Integer IRA_MAXIMA 					= 5;
