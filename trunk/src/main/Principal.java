@@ -2,21 +2,28 @@ package main;
 
 import java.awt.EventQueue;
 
+import main.config.Constantes;
+
 import Controller.ControladorConsola;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ControladorConsola controlador = new ControladorConsola();
-					controlador.mostrarVista();
-				} catch (Exception e) {
-					e.printStackTrace();
+		if (args.length == 0){
+			System.out.println(Constantes.ERROR_PARAMETROS);
+		} else {
+			final String fileName = args[0];
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						ControladorConsola controlador = new ControladorConsola(fileName);
+						controlador.mostrarVista();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});		
+			});
+		}
 	}
-	
+
 }
