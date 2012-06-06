@@ -3,6 +3,7 @@ package main.config;
 public abstract class Constantes {
 	
 	public static String ARCHIVO_CONFIGURACION			= "./././res/ArchivoEntrada.txt";
+	public static String ERROR_PARAMETROS				= "Error de parametros, ingrese la ruta del archivo de configuracion al iniciar";
 	public static Integer LINEAS_MAXIMA					= 16;
 	public static Integer IRA_MINIMA 					= 1;
 	public static Integer IRA_MAXIMA 					= 5;

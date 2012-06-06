@@ -1,5 +1,6 @@
 package Controller;
 
+import main.config.ConfiguracionPrincipal;
 import main.config.Constantes;
 import main.model.ControladorFantasma;
 import view.VistaConsola;
@@ -7,6 +8,10 @@ import view.VistaConsola;
 public class ControladorConsola {
 
 	private ControladorFantasma controlador;
+	
+	public ControladorConsola(String configFileName){
+		ConfiguracionPrincipal.getInstance().leerParametros(configFileName);
+	}
 	
 	public void mostrarVista() {
 		if (VistaConsola.getInstance().getControlador() == null){
