@@ -10,8 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+import controller.ControladorConsola;
+
 import main.config.Constantes;
-import Controller.ControladorConsola;
 
 public class VistaConsola {
 
