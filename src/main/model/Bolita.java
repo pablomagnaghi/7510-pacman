@@ -11,5 +11,7 @@ public abstract class Bolita extends Observable{
 	}
 	
 	public abstract void comer();
+
+	public abstract String imprimir();
 	
 }
