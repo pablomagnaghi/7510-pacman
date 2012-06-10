@@ -41,5 +41,5 @@ public class Posicion {
 	public Posicion getSigPosicionAbajo(){
 		return new Posicion (x, y+1);
 	}
-
+	
 }

@@ -30,7 +30,8 @@ public class Principal {
 //	
 
 	public static void main(String[] args) {
-		new ManejadorJuego();
+		ManejadorJuego manejadorJuego = new ManejadorJuego();
+		manejadorJuego.getLaberinto().imprimirLaberintoDerecho();
 	}
 
 }

@@ -2,7 +2,7 @@ package main.config;
 
 public abstract class Constantes {
 	
-	public static final String ARCHIVO_LABERINTO 			= "/home/luis/Escritorio/escenario.txt";
+	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario.txt";
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
 	public static final String ERROR_PARAMETROS				= "Error de parametros, ingrese la ruta del archivo de configuracion al iniciar";
 	public static final Integer LINEAS_MAXIMA				= 16;

@@ -9,4 +9,9 @@ public class BolitaNula extends Bolita {
 		
 	}
 
+	@Override
+	public String imprimir() {
+		return " ";
+	}
+
 }

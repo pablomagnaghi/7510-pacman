@@ -9,4 +9,9 @@ public class BolitaNormal extends Bolita{
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public String imprimir() {
+		return ".";
+	}
+
 }

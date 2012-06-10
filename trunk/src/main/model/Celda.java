@@ -76,5 +76,16 @@ public class Celda {
 	public void setPared(Boolean pared) {
 		this.pared = pared;
 	}
+	
+	@Override
+	public String toString() {
+		String s = new String();
+		if (this.esPared()){
+			s = "x";
+		} else {
+			s = this.bolita.imprimir();
+		}
+		return s;
+	}
 
 }

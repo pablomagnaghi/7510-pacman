@@ -10,4 +10,9 @@ public class BolitaGrande extends Bolita{
 		notifyObservers();
 	}
 
+	@Override
+	public String imprimir() {
+		return "*";
+	}
+
 }

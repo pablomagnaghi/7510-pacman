@@ -10,10 +10,14 @@ public class Laberinto {
 
 	private Map<Posicion, Celda> mapa;
 	private final Posicion posicionInicioPacman = new Posicion(17,14);
+	private final Posicion posicionInicioLaberinto = new Posicion(0,0);
+	private final Posicion posicionFinalLaberinto = new Posicion(27,27);
 	private final Posicion posicionInicioFantasma = new Posicion(11,14);
+	private Map<Integer, String> mapaString;
 
 	public Laberinto(String input){
 		this.mapa = new HashMap<Posicion, Celda>();
+		this.mapaString = new HashMap<Integer, String>();
 		construirCeldas(input);
 	}
 
@@ -44,12 +48,14 @@ public class Laberinto {
 					if (charIndex % 2 == 0){
 						Posicion posicion = new Posicion(positionIndex, lineIndex);
 						Celda celda = new Celda(val);
+						System.out.print(celda.toString());
 						this.mapa.put(posicion, celda);
 						relacionarCeldas(posicion, celda);
 						positionIndex++;
 					}
 					charIndex++;
 				}
+				System.out.println();
 				lineIndex++;
 			}
 		} catch (Exception e) {
@@ -59,18 +65,50 @@ public class Laberinto {
 	}
 
 	private void relacionarCeldas(Posicion posicion, Celda celda) {
-		Posicion sigPosicionDerecha = posicion.getSigPosicionDerecha();
-		Celda celdaDerecha = this.mapa.get(sigPosicionDerecha);
 		Posicion sigPosicionIzquierda = posicion.getSigPosicionIzquierda();
 		Celda celdaIzquierda = this.mapa.get(sigPosicionIzquierda);
+		asignarRelacionIzquieda(celda, celdaIzquierda);
 		Posicion sigPosicionArriba = posicion.getSigPosicionArriba();
 		Celda celdaArriba = this.mapa.get(sigPosicionArriba);
-		Posicion sigPosicionAbajo = posicion.getSigPosicionAbajo();
-		Celda celdaAbajo = this.mapa.get(sigPosicionAbajo);
+		asignarRelacionArriba(celda, celdaArriba);
+	}
+
+	private void asignarRelacionArriba(Celda celda, Celda celdaArriba) {
+		if (celdaArriba != null){
+			celda.setCeldaArriba(celdaArriba);
+			celdaArriba.setCeldaAbajo(celda);
+		}
+	}
+
+	private void asignarRelacionIzquieda(Celda celda, Celda celdaIzquierda) {
+		if (celdaIzquierda != null){
+			celda.setCeldaIzquierda(celdaIzquierda);
+			celdaIzquierda.setCeldaDerecha(celda);
+		}
 	}
 
 	public Posicion getPosicionInicioFantasma() {
 		return posicionInicioFantasma;
 	}
 
+	public void imprimirLaberintoDerecho(){
+		Boolean hayAbajo = Boolean.TRUE;
+		Celda celda = mapa.get(this.posicionInicioLaberinto);
+		while (hayAbajo){
+			Boolean hayDerecha = Boolean.TRUE;
+			Celda celdaActual = celda;
+			while (hayDerecha){
+				System.out.println(celdaActual);
+				celdaActual = celdaActual.getCeldaDerecha();
+				if (celdaActual == null){
+					hayDerecha = Boolean.FALSE;
+				}
+			}
+			celda = celda.getCeldaAbajo();
+			if (celda == null){
+				hayAbajo = Boolean.FALSE;
+			}
+		}
+	}
+	
 }

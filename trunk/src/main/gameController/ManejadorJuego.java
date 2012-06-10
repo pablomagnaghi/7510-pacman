@@ -10,5 +10,8 @@ public class ManejadorJuego {
 	public ManejadorJuego(){
 		this.laberinto = new Laberinto(Constantes.ARCHIVO_LABERINTO);
 	}
-	
+
+	public Laberinto getLaberinto() {
+		return laberinto;
+	}
 }
