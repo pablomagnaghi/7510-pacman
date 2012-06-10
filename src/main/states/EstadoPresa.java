@@ -15,12 +15,13 @@ public class EstadoPresa implements Estado{
 	
 	@Override
 	public String mover(Fantasma fantasma) {
+		fantasma.getComportamiento().realizarMovimiento(fantasma);
 		return(Constantes.MOVER_PRESA);
 	}
 
 	@Override
 	public String incrementarIra(Fantasma fantasma) {
-		return(Constantes.INCREMENTAR_IRA_PRESA);
+		return Constantes.INCREMENTAR_IRA_PRESA;
 	}
 
 	@Override

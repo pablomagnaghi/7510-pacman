@@ -1,10 +1,12 @@
-package main.model;
+package main.gameController;
 
 import java.util.Observable;
 import java.util.Observer;
 
 import main.config.ConfiguracionPrincipal;
 import main.config.Constantes;
+import main.model.Cronometro;
+import main.model.Fantasma;
 
 public class ControladorFantasma implements Observer{
 

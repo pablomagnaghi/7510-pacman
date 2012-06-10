@@ -15,6 +15,7 @@ public class EstadoCazador implements Estado{
 	
 	@Override
 	public String mover(Fantasma fantasma) {
+		fantasma.getComportamiento().realizarMovimiento(fantasma);
 		return (Constantes.MOVER_CAZADOR + fantasma.getIra());
 	}
 

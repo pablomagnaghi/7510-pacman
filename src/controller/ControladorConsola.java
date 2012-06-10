@@ -2,7 +2,7 @@ package controller;
 
 import main.config.ConfiguracionPrincipal;
 import main.config.Constantes;
-import main.model.ControladorFantasma;
+import main.gameController.ControladorFantasma;
 import view.VistaConsola;
 
 public class ControladorConsola {
