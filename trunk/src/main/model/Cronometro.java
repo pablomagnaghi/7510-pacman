@@ -2,6 +2,8 @@ package main.model;
 
 import java.util.Observable;
 
+import main.gameController.ControladorFantasma;
+
 public class Cronometro extends Observable{
 
 	private Reloj reloj;

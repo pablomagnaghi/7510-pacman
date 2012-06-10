@@ -7,6 +7,7 @@ import main.states.EstadoCazador;
 public class Fantasma{
 	
 	private Estado estado;
+	private Comportamiento comportamiento;
 	private Integer ira;
 	
 	public Fantasma(){
@@ -64,6 +65,14 @@ public class Fantasma{
 
 	private void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public Comportamiento getComportamiento() {
+		return comportamiento;
+	}
+
+	public void setComportamiento(Comportamiento comportamiento) {
+		this.comportamiento = comportamiento;
 	}
 
 }
