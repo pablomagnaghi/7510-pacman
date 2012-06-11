@@ -4,6 +4,16 @@ public abstract class Constantes {
 	
 	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario.txt";
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
+	public static final Integer PACMAN_ARRIBA				= 0;
+	public static final Integer PACMAN_ABAJO				= 1;
+	public static final Integer PACMAN_DERECHA				= 2;
+	public static final Integer PACMAN_IZQUIERDA			= 3;
+	public static final Integer LABERINTO_WIDTH				= 28;
+	public static final Integer LABERINTO_HEIGHT			= 31;
+	public static final String COLOR_ROJO					= "Rojo";
+	public static final String COLOR_VERDE					= "Verde";
+	public static final String COLOR_AMARILLO				= "Amarillo";
+	public static final String COLOR_NEGRO					= "Negro";
 	public static final String ERROR_PARAMETROS				= "Error de parametros, ingrese la ruta del archivo de configuracion al iniciar";
 	public static final Integer LINEAS_MAXIMA				= 16;
 	public static final Integer IRA_MINIMA 					= 1;
