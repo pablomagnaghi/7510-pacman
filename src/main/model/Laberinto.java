@@ -6,23 +6,31 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.config.Constantes;
+
 public class Laberinto {
 
 	private Map<Posicion, Celda> mapa;
-	private final Posicion posicionInicioPacman = new Posicion(17,14);
-	private final Posicion posicionInicioLaberinto = new Posicion(0,0);
-	private final Posicion posicionFinalLaberinto = new Posicion(27,27);
-	private final Posicion posicionInicioFantasma = new Posicion(11,14);
-	private Map<Integer, String> mapaString;
+	private Posicion posiciones[][] = new Posicion[Constantes.LABERINTO_HEIGHT][Constantes.LABERINTO_WIDTH];
 
 	public Laberinto(String input){
+		crearPosiciones();
 		this.mapa = new HashMap<Posicion, Celda>();
-		this.mapaString = new HashMap<Integer, String>();
 		construirCeldas(input);
 	}
 
+	private void crearPosiciones() {
+		Integer height;
+		for (height = 0 ; height < Constantes.LABERINTO_HEIGHT; height++){
+			Integer width;
+			for (width = 0 ; width < Constantes.LABERINTO_WIDTH; width++ ){
+				this.posiciones[height][width] = new Posicion(height, width);
+			}
+		}
+	}
+
 	public Posicion getPosicionInicioPacman() {
-		return posicionInicioPacman;
+		return this.posiciones[17][14];
 	}
 
 	public Map<Posicion, Celda> getMapa() {
@@ -46,8 +54,8 @@ public class Laberinto {
 				while (charIndex < 55){
 					char val = line.charAt(charIndex);
 					if (charIndex % 2 == 0){
-						Posicion posicion = new Posicion(positionIndex, lineIndex);
-						Celda celda = new Celda(val);
+						Posicion posicion = this.posiciones[lineIndex][positionIndex];
+						Celda celda = new Celda(val, posicion);
 						System.out.print(celda.toString());
 						this.mapa.put(posicion, celda);
 						relacionarCeldas(posicion, celda);
@@ -65,12 +73,18 @@ public class Laberinto {
 	}
 
 	private void relacionarCeldas(Posicion posicion, Celda celda) {
-		Posicion sigPosicionIzquierda = posicion.getSigPosicionIzquierda();
-		Celda celdaIzquierda = this.mapa.get(sigPosicionIzquierda);
-		asignarRelacionIzquieda(celda, celdaIzquierda);
-		Posicion sigPosicionArriba = posicion.getSigPosicionArriba();
-		Celda celdaArriba = this.mapa.get(sigPosicionArriba);
-		asignarRelacionArriba(celda, celdaArriba);
+		Integer width = posicion.getWidth();
+		Integer height = posicion.getHeight();
+		if ((width-1) >= 0){
+			Posicion sigPosicionIzquierda = this.posiciones[height][width-1];
+			Celda celdaIzquierda = this.mapa.get(sigPosicionIzquierda);
+			asignarRelacionIzquieda(celda, celdaIzquierda);
+		}
+		if ((height-1)>=0){
+			Posicion sigPosicionArriba = this.posiciones[height-1][width];
+			Celda celdaArriba = this.mapa.get(sigPosicionArriba);
+			asignarRelacionArriba(celda, celdaArriba);
+		}
 	}
 
 	private void asignarRelacionArriba(Celda celda, Celda celdaArriba) {
@@ -88,22 +102,29 @@ public class Laberinto {
 	}
 
 	public Posicion getPosicionInicioFantasma() {
-		return posicionInicioFantasma;
+		return this.posiciones[11][14];
+	}
+	
+
+	public Posicion getPosicionInicioLaberinto() {
+		return this.posiciones[0][0];
 	}
 
 	public void imprimirLaberintoDerecho(){
+		System.out.println("----Imprimiendo laberinto -----");
 		Boolean hayAbajo = Boolean.TRUE;
-		Celda celda = mapa.get(this.posicionInicioLaberinto);
+		Celda celda = mapa.get(getPosicionInicioLaberinto());
 		while (hayAbajo){
 			Boolean hayDerecha = Boolean.TRUE;
 			Celda celdaActual = celda;
 			while (hayDerecha){
-				System.out.println(celdaActual);
+				System.out.print(celdaActual);
 				celdaActual = celdaActual.getCeldaDerecha();
 				if (celdaActual == null){
 					hayDerecha = Boolean.FALSE;
 				}
 			}
+			System.out.println();
 			celda = celda.getCeldaAbajo();
 			if (celda == null){
 				hayAbajo = Boolean.FALSE;
