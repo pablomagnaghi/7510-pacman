@@ -14,4 +14,6 @@ public class ManejadorJuego {
 	public Laberinto getLaberinto() {
 		return laberinto;
 	}
+	
+	
 }
