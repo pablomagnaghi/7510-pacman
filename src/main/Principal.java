@@ -1,10 +1,5 @@
 package main;
 
-import java.awt.EventQueue;
-
-import controller.ControladorConsola;
-
-import main.config.Constantes;
 import main.gameController.ManejadorJuego;
 
 
