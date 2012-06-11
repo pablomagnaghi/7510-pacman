@@ -2,44 +2,28 @@ package main.model;
 
 public class Posicion {
 
-	private Integer x;
-	private Integer y;
+	private Integer height;
+	private Integer width;
 
-	public Posicion(Integer x, Integer y){
-		this.setX(x);
-		this.setY(y);
+	public Posicion(Integer height, Integer width){
+		this.setHeight(height);
+		this.setWidth(width);
 	}
 
-	public Integer getX() {
-		return x;
+	public Integer getHeight() {
+		return height;
 	}
 
-	public void setX(Integer x) {
-		this.x = x;
+	public void setHeight(Integer height) {
+		this.height = height;
 	}
 
-	public Integer getY() {
-		return y;
+	public Integer getWidth() {
+		return width;
 	}
 
-	public void setY(Integer y) {
-		this.y = y;
+	public void setWidth(Integer width) {
+		this.width = width;
 	}
 
-	public Posicion getSigPosicionIzquierda(){
-		return new Posicion(x-1, y);
-	}
-
-	public Posicion getSigPosicionDerecha(){
-		return new Posicion (x+1, y);
-	}
-
-	public Posicion getSigPosicionArriba(){
-		return new Posicion (x, y-1);
-	}
-
-	public Posicion getSigPosicionAbajo(){
-		return new Posicion (x, y+1);
-	}
-	
 }

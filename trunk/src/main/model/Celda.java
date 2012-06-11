@@ -12,8 +12,9 @@ public class Celda {
 	private Celda celdaAbajo;
 	private Bolita bolita;
 	private Boolean pared;
+	private Posicion posicion;
 	
-	public Celda(char val){
+	public Celda(char val, Posicion posicion){
 		if (val == 'x'){
 			this.pared = Boolean.TRUE;
 			this.bolita = new BolitaNula();
@@ -27,6 +28,7 @@ public class Celda {
 			this.pared = Boolean.FALSE;
 			this.bolita = new BolitaGrande();
 		}
+		this.setPosicion(posicion);
 	}
 
 	public Celda getCeldaIzquierda() {
@@ -86,6 +88,14 @@ public class Celda {
 			s = this.bolita.imprimir();
 		}
 		return s;
+	}
+
+	public Posicion getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(Posicion posicion) {
+		this.posicion = posicion;
 	}
 
 }
