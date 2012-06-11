@@ -1,5 +1,5 @@
 package main.gameController;
 
-public class ManejadorTurnos {
+public class ManejadorTurnos  {
 
 }
