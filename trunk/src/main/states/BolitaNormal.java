@@ -14,4 +14,9 @@ public class BolitaNormal extends Bolita{
 		return ".";
 	}
 
+	@Override
+	public Boolean fueComida() {
+		return Boolean.TRUE;
+	}
+
 }

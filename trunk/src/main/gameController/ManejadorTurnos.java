@@ -58,14 +58,18 @@ public class ManejadorTurnos {
 	}
 
 	public void ejecutarTurno(){
-		if (!Pacman.getInstance().mover(this.ordenActual)){
+		if (Pacman.getInstance().getCeldaActual().esBifurcacion()){
 			Pacman.getInstance().mover(leerTurnoPacman());
+		} else {
+			if (!Pacman.getInstance().mover(this.ordenActual)){
+				Pacman.getInstance().mover(leerTurnoPacman());
+			}
 		}
-		Iterator<Fantasma> it = fantasmas.iterator();
-		while (it.hasNext()){
-			Fantasma fantasma = it.next();
-			fantasma.mover();
-		}
+//		Iterator<Fantasma> it = fantasmas.iterator();
+//		while (it.hasNext()){
+//			Fantasma fantasma = it.next();
+//			fantasma.mover();
+//		}
 	}
 	
 	public Boolean esFinDeJuego(){

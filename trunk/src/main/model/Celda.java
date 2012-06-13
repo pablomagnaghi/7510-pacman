@@ -110,4 +110,18 @@ public class Celda {
 		return !this.esPared();
 	}
 
+	public void visitarPorPacman() {
+		this.bolita.comer();
+		this.bolita = new BolitaNula();
+	}
+
+	public Boolean esBifurcacion(){
+		Boolean celdaAbajoPosible = this.celdaAbajo != null && this.celdaAbajo.esTransitable(); 
+		Boolean celdaArribaPosible = this.celdaArriba != null && this.celdaArriba.esTransitable();
+		Boolean celdaDerechaPosible = this.celdaDerecha != null && this.celdaDerecha.esTransitable();
+		Boolean celdaIzquierdaPosible = this.celdaIzquierda != null && this.celdaIzquierda.esTransitable();
+		Boolean bifurcacionPosibleUno = celdaDerechaPosible && celdaIzquierdaPosible && (celdaAbajoPosible || celdaArribaPosible);
+		Boolean bifurcacionPosibleDos = celdaAbajoPosible && celdaArribaPosible && (celdaIzquierdaPosible || celdaDerechaPosible);
+		return (bifurcacionPosibleUno || bifurcacionPosibleDos);
+	}
 }

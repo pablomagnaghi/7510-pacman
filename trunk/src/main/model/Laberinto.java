@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,6 +188,16 @@ public class Laberinto {
 				System.out.print(celdaActual);
 			}
 		}
+	}
+	
+	public Boolean hayMasBolitas(){
+		Collection<Celda> values = this.mapa.values();
+		for (Celda celda : values) {
+			if (!celda.getBolita().fueComida()){
+				return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;
 	}
 
 	public List<Fantasma> getFantasmas() {

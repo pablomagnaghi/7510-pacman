@@ -50,6 +50,7 @@ public class Pacman {
 			this.celdaActual = nextCell;
 			System.out.println(this.celdaActual);
 			System.out.println(this.celdaActual.getPosicion());
+			this.celdaActual.visitarPorPacman();
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;

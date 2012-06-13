@@ -23,7 +23,7 @@ public abstract class Constantes {
 	public static final String ERROR_PARAMETROS				= "Error de parametros, ingrese la ruta del archivo de configuracion al iniciar";
 	public static final Integer LINEAS_MAXIMA				= 16;
 	public static final Integer IRA_MINIMA 					= 1;
-	public static final Integer IRA_MAXIMA 					= 5;
+	public static final Integer IRA_MAXIMA 					= 3;
 	public static final String CAZADOR 						= "Cazador";
 	public static final String ELIMINAR_CAZADOR 			= "No me podes comer, soy cazador";
 	public static final String REVIVIR_CAZADOR 				= "No me podes revivir, ya estoy vivo";

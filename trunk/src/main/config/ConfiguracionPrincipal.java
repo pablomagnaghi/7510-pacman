@@ -17,7 +17,7 @@ public class ConfiguracionPrincipal {
 	private static Pattern tiempoPresaPattern = Pattern.compile("tiempopresa\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	
 	private ConfiguracionPrincipal(){
-		
+		leerParametros(Constantes.ARCHIVO_CONFIGURACION);
 	}
 	
 	public void leerParametros(String archivoEntrada){
