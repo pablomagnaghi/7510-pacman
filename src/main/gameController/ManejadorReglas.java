@@ -18,12 +18,10 @@ public class ManejadorReglas implements Observer{
 	private Integer tiempoMuerto;
 	private Integer tiempoPresa;
 	private Integer cantTicks = 0;
-	private Map<Fantasma, Integer> tiemposMuertos;
 	private List<Fantasma> fantasmas;
 	private Boolean finJuego = Boolean.FALSE;
 
 	private ManejadorReglas(){
-		this.tiemposMuertos = new HashMap<Fantasma, Integer>();
 		this.tiempoMuerto = ConfiguracionPrincipal.getInstance().getTiempoMuerto();
 		this.tiempoPresa = ConfiguracionPrincipal.getInstance().getTiempoPresa();
 	}
@@ -45,7 +43,6 @@ public class ManejadorReglas implements Observer{
 			if (fantasma.getCeldaActual().equals(Pacman.getInstance().getCeldaActual())){
 				if (cronometroPresaContando){
 					fantasma.eliminar();
-					this.tiemposMuertos.put(fantasma, this.tiempoMuerto);
 				} else {
 					Pacman.getInstance().eliminar();
 					this.setFinJuego(Boolean.TRUE);

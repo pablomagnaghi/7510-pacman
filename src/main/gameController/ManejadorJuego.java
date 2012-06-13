@@ -30,7 +30,7 @@ public class ManejadorJuego {
 				if (finished){
 					System.out.println("Fin, pacman eliminado");
 				} else {
-					finished = this.laberinto.hayMasBolitas();
+					finished = !(this.laberinto.hayMasBolitas());
 					if (finished){
 						System.out.println("Fin, todas las pelotas comidas");
 					}

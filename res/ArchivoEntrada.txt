@@ -1,2 +1,2 @@
 TiempoMuerto = 10
-TiempoPresa = 15
+TiempoPresa = 27

@@ -18,7 +18,7 @@ public class Laberinto {
 	private Posicion primerPortal;
 	private Posicion segundoPortal;
 	private List<Fantasma> fantasmas;
-	
+
 	public Laberinto(String input){
 		crearPosiciones();
 		this.mapa = new HashMap<Posicion, Celda>();
@@ -43,7 +43,7 @@ public class Laberinto {
 	}
 
 	public Posicion getPosicionInicioPacman() {
-		return this.posiciones[17][14];
+		return this.posiciones[1][1];
 	}
 
 	public Map<Posicion, Celda> getMapa() {
@@ -94,19 +94,21 @@ public class Laberinto {
 	private void asociarPortales() {
 		Celda celdaUno = this.mapa.get(primerPortal);
 		Celda celdaDos = this.mapa.get(segundoPortal);
-		if (celdaUno.getCeldaAbajo()==null){
-			celdaUno.setCeldaAbajo(celdaDos);
-			celdaDos.setCeldaArriba(celdaUno);
-		} else if (celdaUno.getCeldaArriba()==null){
-			celdaUno.setCeldaArriba(celdaDos);
-			celdaDos.setCeldaAbajo(celdaUno);
-		} else if (celdaUno.getCeldaDerecha()==null){
-			celdaUno.setCeldaDerecha(celdaDos);
-			celdaDos.setCeldaIzquierda(celdaUno);
-		}
-		if (celdaUno.getCeldaIzquierda()==null){
-			celdaUno.setCeldaIzquierda(celdaDos);
-			celdaDos.setCeldaDerecha(celdaUno);
+		if (celdaUno != null && celdaDos!= null){
+			if (celdaUno.getCeldaAbajo()==null){
+				celdaUno.setCeldaAbajo(celdaDos);
+				celdaDos.setCeldaArriba(celdaUno);
+			} else if (celdaUno.getCeldaArriba()==null){
+				celdaUno.setCeldaArriba(celdaDos);
+				celdaDos.setCeldaAbajo(celdaUno);
+			} else if (celdaUno.getCeldaDerecha()==null){
+				celdaUno.setCeldaDerecha(celdaDos);
+				celdaDos.setCeldaIzquierda(celdaUno);
+			}
+			if (celdaUno.getCeldaIzquierda()==null){
+				celdaUno.setCeldaIzquierda(celdaDos);
+				celdaDos.setCeldaDerecha(celdaUno);
+			}
 		}
 	}
 
@@ -140,9 +142,9 @@ public class Laberinto {
 	}
 
 	public Posicion getPosicionInicioFantasma() {
-		return this.posiciones[11][14];
+		return this.posiciones[1][16];
 	}
-	
+
 
 	public Posicion getPosicionInicioLaberinto() {
 		return this.posiciones[0][0];
@@ -189,7 +191,7 @@ public class Laberinto {
 			}
 		}
 	}
-	
+
 	public Boolean hayMasBolitas(){
 		Collection<Celda> values = this.mapa.values();
 		for (Celda celda : values) {
