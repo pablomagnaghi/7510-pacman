@@ -26,7 +26,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		ManejadorJuego manejadorJuego = new ManejadorJuego();
-		manejadorJuego.getLaberinto().imprimir();
+		manejadorJuego.correrJuego();
 	}
 
 }

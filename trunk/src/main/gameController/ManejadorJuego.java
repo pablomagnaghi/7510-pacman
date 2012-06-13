@@ -15,7 +15,7 @@ public class ManejadorJuego {
 		return laberinto;
 	}
 	
-	public void runGame(){
+	public void correrJuego(){
 		Boolean finished = false;
 		ManejadorTurnos.getInstance().setFantasmas(laberinto.getFantasmas());
 		ManejadorReglas.getInstance().setFantasmas(laberinto.getFantasmas());
