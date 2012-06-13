@@ -17,7 +17,7 @@ public class BolitaGrande extends Bolita{
 
 	@Override
 	public Boolean fueComida() {
-		return Boolean.TRUE;
+		return Boolean.FALSE;
 	}
 
 }

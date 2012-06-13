@@ -25,6 +25,7 @@ public class Pacman {
 
 	public void setCeldaActual(Celda celdaActual) {
 		this.celdaActual = celdaActual;
+		this.celdaActual.visitarPorPacman();
 	}
 
 	public void eliminar() {
