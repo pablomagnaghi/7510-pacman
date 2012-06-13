@@ -23,10 +23,12 @@ public class Laberinto {
 		this.mapa = new HashMap<Posicion, Celda>();
 		construirCeldas(input);
 		this.fantasmas = new ArrayList<Fantasma>();
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_NEGRO));
+		Celda celda = this.mapa.get(getPosicionInicioFantasma());
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_NEGRO, celda));
+		Pacman.getInstance().setCeldaActual(this.mapa.get(getPosicionInicioPacman()));
 	}
 
 	private void crearPosiciones() {
@@ -66,7 +68,6 @@ public class Laberinto {
 					if (charIndex % 2 == 0){
 						Posicion posicion = this.posiciones[lineIndex][positionIndex];
 						Celda celda = new Celda(val, posicion);
-						System.out.print(celda.toString());
 						this.mapa.put(posicion, celda);
 						relacionarCeldas(posicion, celda);
 						if (val == 'p'){
@@ -80,7 +81,6 @@ public class Laberinto {
 					}
 					charIndex++;
 				}
-				System.out.println();
 				lineIndex++;
 			}
 			asociarPortales();
@@ -174,17 +174,17 @@ public class Laberinto {
 
 	private void imprimirCelda(Celda celdaActual) {
 		if (celdaActual.equals(Pacman.getInstance().getCeldaActual())){
-			System.out.println("P");
+			System.out.print("P");
 		} else {
 			Boolean hayFantasma = Boolean.FALSE;
 			for (Fantasma fantasma : this.fantasmas) {
 				if (fantasma.getCeldaActual().equals(celdaActual)){
-					System.out.println("F");
+					System.out.print("F");
 					hayFantasma = Boolean.TRUE;
 				}
 			}
 			if (!hayFantasma){
-				System.out.println(celdaActual);
+				System.out.print(celdaActual);
 			}
 		}
 	}
