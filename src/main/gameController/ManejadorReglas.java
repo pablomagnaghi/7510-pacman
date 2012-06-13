@@ -20,6 +20,7 @@ public class ManejadorReglas implements Observer{
 	private Map<Fantasma, Integer> tiemposMuertos;
 	private List<Fantasma> fantasmas;
 	private Integer cantTicks = 0;
+	private Boolean finJuego = Boolean.FALSE;
 
 	private ManejadorReglas(){
 		this.tiemposMuertos = new HashMap<Fantasma, Integer>();
@@ -32,7 +33,7 @@ public class ManejadorReglas implements Observer{
 		this.cronometroPresaContando = Boolean.TRUE;
 	}
 
-	public void chequearEstadoActores(){
+	private void chequearEstadoActores(){
 		Iterator<Fantasma> it = getFantasmas().iterator();
 		while (it.hasNext()){
 			Fantasma fantasma = it.next();
@@ -42,12 +43,13 @@ public class ManejadorReglas implements Observer{
 					this.tiemposMuertos.put(fantasma, this.tiempoMuerto);
 				} else {
 					Pacman.getInstance().eliminar();
+					this.setFinJuego(Boolean.TRUE);
 				}
 			}
 		}
 	}
 	
-	public void chequearTiempos(){
+	private void chequearTiempos(){
 		if (this.cronometroPresaContando){
 			if (tiempoPresa < cantTicks){
 				cantTicks++;
@@ -79,6 +81,19 @@ public class ManejadorReglas implements Observer{
 
 	public void setFantasmas(List<Fantasma> fantasmas) {
 		this.fantasmas = fantasmas;
+	}
+	
+	public void chequearSituacion(){
+		this.chequearEstadoActores();
+		this.chequearTiempos();
+	}
+
+	public Boolean esFinJuego() {
+		return finJuego;
+	}
+
+	private void setFinJuego(Boolean finJuego) {
+		this.finJuego = finJuego;
 	}
 
 }

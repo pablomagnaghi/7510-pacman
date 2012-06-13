@@ -15,5 +15,19 @@ public class ManejadorJuego {
 		return laberinto;
 	}
 	
+	public void runGame(){
+		Boolean finished = false;
+		ManejadorTurnos.getInstance().setFantasmas(laberinto.getFantasmas());
+		ManejadorReglas.getInstance().setFantasmas(laberinto.getFantasmas());
+		while (!finished){
+			ManejadorTurnos.getInstance().ejecutarTurno();
+			ManejadorReglas.getInstance().chequearSituacion();
+			finished = ManejadorTurnos.getInstance().esFinDeJuego();
+			if (!finished){
+				ManejadorReglas.getInstance().esFinJuego();
+			}
+			this.laberinto.imprimir();
+		}
+	}
 	
 }
