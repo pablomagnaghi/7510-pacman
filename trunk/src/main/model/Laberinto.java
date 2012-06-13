@@ -3,7 +3,9 @@ package main.model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import main.config.Constantes;
@@ -12,11 +14,19 @@ public class Laberinto {
 
 	private Map<Posicion, Celda> mapa;
 	private Posicion posiciones[][] = new Posicion[Constantes.LABERINTO_HEIGHT][Constantes.LABERINTO_WIDTH];
-
+	private Posicion primerPortal;
+	private Posicion segundoPortal;
+	private List<Fantasma> fantasmas;
+	
 	public Laberinto(String input){
 		crearPosiciones();
 		this.mapa = new HashMap<Posicion, Celda>();
 		construirCeldas(input);
+		this.fantasmas = new ArrayList<Fantasma>();
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_NEGRO));
 	}
 
 	private void crearPosiciones() {
@@ -59,6 +69,13 @@ public class Laberinto {
 						System.out.print(celda.toString());
 						this.mapa.put(posicion, celda);
 						relacionarCeldas(posicion, celda);
+						if (val == 'p'){
+							if (this.primerPortal == null){
+								this.primerPortal = posicion;
+							} else {
+								this.segundoPortal = posicion;
+							}
+						}
 						positionIndex++;
 					}
 					charIndex++;
@@ -66,10 +83,30 @@ public class Laberinto {
 				System.out.println();
 				lineIndex++;
 			}
+			asociarPortales();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void asociarPortales() {
+		Celda celdaUno = this.mapa.get(primerPortal);
+		Celda celdaDos = this.mapa.get(segundoPortal);
+		if (celdaUno.getCeldaAbajo()==null){
+			celdaUno.setCeldaAbajo(celdaDos);
+			celdaDos.setCeldaArriba(celdaUno);
+		} else if (celdaUno.getCeldaArriba()==null){
+			celdaUno.setCeldaArriba(celdaDos);
+			celdaDos.setCeldaAbajo(celdaUno);
+		} else if (celdaUno.getCeldaDerecha()==null){
+			celdaUno.setCeldaDerecha(celdaDos);
+			celdaDos.setCeldaIzquierda(celdaUno);
+		}
+		if (celdaUno.getCeldaIzquierda()==null){
+			celdaUno.setCeldaIzquierda(celdaDos);
+			celdaDos.setCeldaDerecha(celdaUno);
+		}
 	}
 
 	private void relacionarCeldas(Posicion posicion, Celda celda) {
@@ -110,7 +147,7 @@ public class Laberinto {
 		return this.posiciones[0][0];
 	}
 
-	public void imprimirLaberintoDerecho(){
+	public void imprimir(){
 		System.out.println("----Imprimiendo laberinto -----");
 		Boolean hayAbajo = Boolean.TRUE;
 		Celda celda = mapa.get(getPosicionInicioLaberinto());
@@ -118,10 +155,13 @@ public class Laberinto {
 			Boolean hayDerecha = Boolean.TRUE;
 			Celda celdaActual = celda;
 			while (hayDerecha){
-				System.out.print(celdaActual);
+				imprimirCelda(celdaActual);
 				celdaActual = celdaActual.getCeldaDerecha();
-				if (celdaActual == null){
+				if (celdaActual == null || celdaActual.esPortal()){
 					hayDerecha = Boolean.FALSE;
+					if (celdaActual!= null && celdaActual.esPortal()){
+						System.out.print(celdaActual);
+					}
 				}
 			}
 			System.out.println();
@@ -131,5 +171,26 @@ public class Laberinto {
 			}
 		}
 	}
-	
+
+	private void imprimirCelda(Celda celdaActual) {
+		if (celdaActual.equals(Pacman.getInstance().getCeldaActual())){
+			System.out.println("P");
+		} else {
+			Boolean hayFantasma = Boolean.FALSE;
+			for (Fantasma fantasma : this.fantasmas) {
+				if (fantasma.getCeldaActual().equals(celdaActual)){
+					System.out.println("F");
+					hayFantasma = Boolean.TRUE;
+				}
+			}
+			if (!hayFantasma){
+				System.out.println(celdaActual);
+			}
+		}
+	}
+
+	public List<Fantasma> getFantasmas() {
+		return fantasmas;
+	}
+
 }

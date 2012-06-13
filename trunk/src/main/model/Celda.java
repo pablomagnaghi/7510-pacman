@@ -11,7 +11,8 @@ public class Celda {
 	private Celda celdaArriba;
 	private Celda celdaAbajo;
 	private Bolita bolita;
-	private Boolean pared;
+	private Boolean pared = Boolean.FALSE;
+	private Boolean portal = Boolean.FALSE;
 	private Posicion posicion;
 	
 	public Celda(char val, Posicion posicion){
@@ -19,11 +20,12 @@ public class Celda {
 			this.pared = Boolean.TRUE;
 			this.bolita = new BolitaNula();
 		} else if (val == ' '){
-			this.pared = Boolean.FALSE;
 			this.bolita = new BolitaNula();
 		} else if (val == '.'){
-			this.pared = Boolean.FALSE;
 			this.bolita = new BolitaNormal();
+		} else if (val == 'p'){
+			this.portal = Boolean.TRUE;
+			this.bolita = new BolitaNula();
 		} else {
 			this.pared = Boolean.FALSE;
 			this.bolita = new BolitaGrande();
@@ -84,6 +86,8 @@ public class Celda {
 		String s = new String();
 		if (this.esPared()){
 			s = "x";
+		} else if (this.esPortal()){
+			s = "p";
 		} else {
 			s = this.bolita.imprimir();
 		}
@@ -96,6 +100,14 @@ public class Celda {
 
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
+	}
+
+	public Boolean esPortal() {
+		return portal;
+	}
+
+	public Boolean esTransitable() {
+		return !this.esPared();
 	}
 
 }
