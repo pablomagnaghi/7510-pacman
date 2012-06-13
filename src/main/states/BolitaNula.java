@@ -13,5 +13,10 @@ public class BolitaNula extends Bolita {
 	public String imprimir() {
 		return " ";
 	}
+	
+	@Override
+	public Boolean fueComida(){
+		return Boolean.TRUE;
+	}
 
 }

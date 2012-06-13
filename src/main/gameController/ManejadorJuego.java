@@ -20,15 +20,25 @@ public class ManejadorJuego {
 		ManejadorTurnos.getInstance().setFantasmas(laberinto.getFantasmas());
 		ManejadorReglas.getInstance().setFantasmas(laberinto.getFantasmas());
 		laberinto.imprimir();
-//		while (!finished){
-//			ManejadorTurnos.getInstance().ejecutarTurno();
-//			ManejadorReglas.getInstance().chequearSituacion();
-//			finished = ManejadorTurnos.getInstance().esFinDeJuego();
-//			if (!finished){
-//				ManejadorReglas.getInstance().esFinJuego();
-//			}
-//			this.laberinto.imprimir();
-//		}
+		while (!finished){
+			ManejadorTurnos.getInstance().ejecutarTurno();
+			ManejadorReglas.getInstance().chequearSituacion();
+			this.laberinto.imprimir();
+			finished = ManejadorTurnos.getInstance().esFinDeJuego();
+			if (!finished){
+				finished = ManejadorReglas.getInstance().esFinJuego();
+				if (finished){
+					System.out.println("Fin, pacman eliminado");
+				} else {
+					finished = this.laberinto.hayMasBolitas();
+					if (finished){
+						System.out.println("Fin, todas las pelotas comidas");
+					}
+				}
+			}else {
+				System.out.println("Fin, no hay movimientos del pacman");
+			}
+		}
 	}
 	
 }

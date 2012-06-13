@@ -14,7 +14,6 @@ public class Fantasma{
 	private Celda celdaActual;
 	
 	public Fantasma(String color, Celda inicial){
-		System.out.println("Iniciando fantasma");
 		this.setEstado(EstadoCazador.getInstance());
 		this.ira = Constantes.IRA_MINIMA;
 		this.setColor(color);

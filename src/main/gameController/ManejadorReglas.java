@@ -17,9 +17,9 @@ public class ManejadorReglas implements Observer{
 	private Boolean cronometroPresaContando = Boolean.FALSE;
 	private Integer tiempoMuerto;
 	private Integer tiempoPresa;
+	private Integer cantTicks = 0;
 	private Map<Fantasma, Integer> tiemposMuertos;
 	private List<Fantasma> fantasmas;
-	private Integer cantTicks = 0;
 	private Boolean finJuego = Boolean.FALSE;
 
 	private ManejadorReglas(){
@@ -31,6 +31,11 @@ public class ManejadorReglas implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		this.cronometroPresaContando = Boolean.TRUE;
+		Iterator<Fantasma> it = getFantasmas().iterator();
+		while (it.hasNext()){
+			Fantasma fantasma = it.next();
+			fantasma.convertirEnPresa();
+		}
 	}
 
 	private void chequearEstadoActores(){
@@ -51,7 +56,8 @@ public class ManejadorReglas implements Observer{
 	
 	private void chequearTiempos(){
 		if (this.cronometroPresaContando){
-			if (tiempoPresa < cantTicks){
+			if (cantTicks < tiempoPresa){
+				System.out.println("Sumando tiempoPresa");
 				cantTicks++;
 			} else {
 				this.cronometroPresaContando = Boolean.FALSE;
@@ -61,6 +67,8 @@ public class ManejadorReglas implements Observer{
 					Fantasma fantasma = it.next();
 					if (fantasma.estaMuerto()){
 						fantasma.revivir();
+					} else {
+						fantasma.convertirEnCazador();
 					}
 				}
 			}
