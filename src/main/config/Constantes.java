@@ -14,6 +14,7 @@ public abstract class Constantes {
 	public static final Integer PACMAN_DERECHA				= 2;
 	public static final Integer PACMAN_IZQUIERDA			= 3;
 	public static final Integer PACMAN_FIN					= 4;
+	public static final Integer PACMAN_VELOCIDAD			= 2;
 	//public static final Integer LABERINTO_WIDTH				= 28;
 	public static final Integer LABERINTO_WIDTH				= 28;
 	public static final Integer LABERINTO_HEIGHT			= 3;
