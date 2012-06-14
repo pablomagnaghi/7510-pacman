@@ -65,11 +65,11 @@ public class ManejadorTurnos {
 				Pacman.getInstance().mover(leerTurnoPacman());
 			}
 		}
-//		Iterator<Fantasma> it = fantasmas.iterator();
-//		while (it.hasNext()){
-//			Fantasma fantasma = it.next();
-//			fantasma.mover();
-//		}
+		Iterator<Fantasma> it = fantasmas.iterator();
+		while (it.hasNext()){
+			Fantasma fantasma = it.next();
+			fantasma.mover();
+		}
 	}
 	
 	public Boolean esFinDeJuego(){

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.config.Constantes;
+import main.states.ComportamientoZonzo;
 
 public class Laberinto {
 
@@ -25,10 +26,7 @@ public class Laberinto {
 		construirCeldas(input);
 		this.fantasmas = new ArrayList<Fantasma>();
 		Celda celda = this.mapa.get(getPosicionInicioFantasma());
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda));
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_NEGRO, celda));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance()));
 		Pacman.getInstance().setCeldaActual(this.mapa.get(getPosicionInicioPacman()));
 	}
 

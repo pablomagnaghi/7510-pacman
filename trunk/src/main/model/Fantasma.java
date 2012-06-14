@@ -13,7 +13,8 @@ public class Fantasma{
 	private String color;
 	private Celda celdaActual;
 	
-	public Fantasma(String color, Celda inicial){
+	public Fantasma(String color, Celda inicial, Comportamiento comportamiento){
+		this.comportamiento = comportamiento;
 		this.setEstado(EstadoCazador.getInstance());
 		this.ira = Constantes.IRA_MINIMA;
 		this.setColor(color);

@@ -4,11 +4,19 @@ import main.model.Comportamiento;
 import main.model.Fantasma;
 
 public class ComportamientoZonzo implements Comportamiento{
+	
+	private static ComportamientoZonzo instance = null;
 
 	@Override
 	public void realizarMovimiento(Fantasma fantasma) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	public static ComportamientoZonzo getInstance() {
+		if (instance == null){
+			instance = new ComportamientoZonzo();
+		}
+		return instance;
 	}
 
 }
