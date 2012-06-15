@@ -32,5 +32,17 @@ public class Posicion {
 		sb.append("height: " + height + " , width: " + width);
 		return sb.toString();
 	}
+
+	public String getStringId() {
+		return String.format("%02d%02d", this.height, this.width);
+	}
+
+	public String getStringHeight() {
+		return String.format("%02d", this.height);
+	}
+
+	public String getStringWidth() {
+		return String.format("%02d", this.width);
+	}
 	
 }

@@ -2,23 +2,28 @@ package main.config;
 
 public abstract class Constantes {
 
-	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario2.txt";
+	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario.txt";
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
 	public static final String ARCHIVO_PACMAN				= "./././res/Ordenes.txt";
 	public static final String DERECHA						= "DERECHA";
 	public static final String ABAJO						= "ABAJO";
 	public static final String ARRIBA						= "ARRIBA";
 	public static final String IZQUIERDA					= "IZQUIERDA";
+	public static final Integer PACMAN_INICIO_COL			= 17;
+	public static final Integer PACMAN_INICIO_FIL			= 14;
+	public static final Integer FANTASMA_INICIO_COL			= 11;
+	public static final Integer FANTASMA_INICIO_FIL			= 14;
+	
+	
 	public static final Integer PACMAN_ARRIBA				= 0;
 	public static final Integer PACMAN_ABAJO				= 1;
 	public static final Integer PACMAN_DERECHA				= 2;
 	public static final Integer PACMAN_IZQUIERDA			= 3;
 	public static final Integer PACMAN_FIN					= 4;
 	public static final Integer PACMAN_VELOCIDAD			= 2;
-	//public static final Integer LABERINTO_WIDTH				= 28;
 	public static final Integer LABERINTO_WIDTH				= 28;
-	public static final Integer LABERINTO_HEIGHT			= 3;
-	//public static final Integer LABERINTO_HEIGHT			= 31;
+//	public static final Integer LABERINTO_HEIGHT			= 3;
+	public static final Integer LABERINTO_HEIGHT			= 31;
 	public static final String COLOR_ROJO					= "Rojo";
 	public static final String COLOR_VERDE					= "Verde";
 	public static final String COLOR_AMARILLO				= "Amarillo";

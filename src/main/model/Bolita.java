@@ -15,5 +15,7 @@ public abstract class Bolita extends Observable{
 	public abstract String imprimir();
 
 	public abstract Boolean fueComida();
+
+	public abstract String getContent();
 	
 }

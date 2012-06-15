@@ -20,4 +20,9 @@ public class BolitaGrande extends Bolita{
 		return Boolean.FALSE;
 	}
 
+	@Override
+	public String getContent() {
+		return "bolon";
+	}
+
 }

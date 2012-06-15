@@ -19,4 +19,9 @@ public class BolitaNula extends Bolita {
 		return Boolean.TRUE;
 	}
 
+	@Override
+	public String getContent() {
+		return "";
+	}
+
 }

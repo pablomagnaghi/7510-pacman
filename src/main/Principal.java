@@ -7,7 +7,8 @@ public class Principal {
 
 	public static void main(String[] args) {
 		ManejadorJuego manejadorJuego = new ManejadorJuego();
-		manejadorJuego.correrJuego();
+//		manejadorJuego.correrJuego();
+		manejadorJuego.getLaberinto().imprimirAXML();
 	}
 
 }
