@@ -18,6 +18,7 @@ public class Pacman {
 	}
 
 	private Celda celdaActual;
+	private String siguienteCeldaId;
 
 	public Celda getCeldaActual() {
 		return celdaActual;
@@ -25,7 +26,6 @@ public class Pacman {
 
 	public void setCeldaActual(Celda celdaActual) {
 		this.celdaActual = celdaActual;
-		this.celdaActual.visitarPorPacman();
 	}
 
 	public void eliminar() {
@@ -33,25 +33,20 @@ public class Pacman {
 	}
 
 	public Boolean mover(Integer direccion) {
-		Celda nextCell = null;
-		System.out.print("Pacman: ");
+		siguienteCeldaId = "";
 		if (Constantes.PACMAN_ABAJO.equals(direccion)){
-			nextCell = this.celdaActual.getCeldaAbajo();
+			siguienteCeldaId = this.celdaActual.getCeldaAbajo();
 		} 
 		else if (Constantes.PACMAN_ARRIBA.equals(direccion)){
-			nextCell = this.celdaActual.getCeldaArriba();
+			siguienteCeldaId = this.celdaActual.getCeldaArriba();
 		} 
 		else if (Constantes.PACMAN_DERECHA.equals(direccion)){
-			nextCell = this.celdaActual.getCeldaDerecha();
+			siguienteCeldaId = this.celdaActual.getCeldaDerecha();
 		} 
 		else if (Constantes.PACMAN_IZQUIERDA.equals(direccion)){
-			nextCell = this.celdaActual.getCeldaIzquierda();
+			siguienteCeldaId = this.celdaActual.getCeldaIzquierda();
 		}
-		if (nextCell != null && nextCell.esTransitable()){
-			this.celdaActual = nextCell;
-			System.out.println(this.celdaActual);
-			System.out.println(this.celdaActual.getPosicion());
-			this.celdaActual.visitarPorPacman();
+		if (siguienteCeldaId != ""){
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
@@ -59,8 +54,11 @@ public class Pacman {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return super.toString();
+	}
+	
+	public String getSiguienteCelda(){
+		return this.siguienteCeldaId;
 	}
 
 }
