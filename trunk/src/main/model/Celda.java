@@ -124,4 +124,8 @@ public class Celda {
 		Boolean bifurcacionPosibleDos = celdaAbajoPosible && celdaArribaPosible && (celdaIzquierdaPosible || celdaDerechaPosible);
 		return (bifurcacionPosibleUno || bifurcacionPosibleDos);
 	}
+
+	public String getContent() {
+		return this.bolita.getContent();
+	}
 }

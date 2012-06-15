@@ -19,4 +19,9 @@ public class BolitaNormal extends Bolita{
 		return Boolean.FALSE;
 	}
 
+	@Override
+	public String getContent() {
+		return "bolita";
+	}
+
 }

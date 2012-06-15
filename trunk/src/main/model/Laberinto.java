@@ -41,7 +41,7 @@ public class Laberinto {
 	}
 
 	public Posicion getPosicionInicioPacman() {
-		return this.posiciones[1][1];
+		return this.posiciones[Constantes.PACMAN_INICIO_COL][Constantes.PACMAN_INICIO_FIL];
 	}
 
 	public Map<Posicion, Celda> getMapa() {
@@ -140,7 +140,7 @@ public class Laberinto {
 	}
 
 	public Posicion getPosicionInicioFantasma() {
-		return this.posiciones[1][16];
+		return this.posiciones[Constantes.FANTASMA_INICIO_COL][Constantes.FANTASMA_INICIO_FIL];
 	}
 
 
@@ -171,6 +171,49 @@ public class Laberinto {
 				hayAbajo = Boolean.FALSE;
 			}
 		}
+	}
+	
+	public void imprimirAXML(){
+		Posicion pacman = getPosicionInicioPacman();
+		Posicion fantasma = getPosicionInicioFantasma();
+		System.out.println("<laberinto ancho=\"" + Constantes.LABERINTO_WIDTH + "\" alto=\"" + Constantes.LABERINTO_HEIGHT +"\" nodoAncho=\"30\" " +
+				"nodoAlto=\"30\" inicioPacman=\""+pacman.getStringId()+"\" inicioFantasmas=\""+fantasma.getStringId()+"\">");
+		Integer fila;
+		for(fila = 0; fila < Constantes.LABERINTO_HEIGHT; fila++){
+			Integer columna;
+			for(columna = 0; columna < Constantes.LABERINTO_WIDTH; columna++){
+				Posicion p = this.posiciones[fila][columna];
+				String id = p.getStringId();
+				String col = p.getStringHeight();
+				String fil = p.getStringWidth();
+				Celda celda = this.mapa.get(p);
+				String content = celda.getContent();
+				String izquierda = "";
+				String derecha = "";
+				String arriba = "";
+				String abajo = "";
+				Celda celdaIzq = celda.getCeldaIzquierda();
+				if (celdaIzq != null){
+					izquierda = celdaIzq.getPosicion().getStringId();
+				}
+				Celda celdaDer = celda.getCeldaDerecha();
+				if (celdaDer != null){
+					derecha = celdaDer.getPosicion().getStringId();
+				}
+				Celda celdaArr = celda.getCeldaArriba();
+				if (celdaArr != null){
+					arriba = celdaArr.getPosicion().getStringId();
+				}
+				Celda celdaAba = celda.getCeldaAbajo();
+				if (celdaAba != null){
+					abajo = celdaAba.getPosicion().getStringId();
+				}
+				
+				System.out.println("\t<nodo id=\""+id+"\" fila=\""+fil+"\" columna=\""+col+"\" contiene=\""+content+"\" " +
+						"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
+			}
+		}
+		System.out.println("</laberinto>");
 	}
 
 	private void imprimirCelda(Celda celdaActual) {
