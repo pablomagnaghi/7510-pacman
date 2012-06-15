@@ -1,236 +1,76 @@
 package main.model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.config.Constantes;
 import main.states.ComportamientoZonzo;
 
 public class Laberinto {
 
-	private Map<Posicion, Celda> mapa;
-	private Posicion posiciones[][] = new Posicion[Constantes.LABERINTO_HEIGHT][Constantes.LABERINTO_WIDTH];
-	private Posicion primerPortal;
-	private Posicion segundoPortal;
+	private Map<String, Celda> mapa;
 	private List<Fantasma> fantasmas;
-
-	public Laberinto(String input){
-		crearPosiciones();
-		this.mapa = new HashMap<Posicion, Celda>();
-		construirCeldas(input);
+	private String posicionInicioFantasma;
+	private String posicionInicioPacman;
+	private Integer cantFil;
+	private Integer cantCol;
+	private Integer nodoAncho;
+	private Integer nodoAlto;
+	
+	public Laberinto(Integer filas, Integer columnas){
+		this.cantFil = filas;
+		this.cantCol = columnas;
+		this.mapa = new HashMap<String, Celda>();
 		this.fantasmas = new ArrayList<Fantasma>();
+	}
+	
+	public Laberinto(String input){
 		Celda celda = this.mapa.get(getPosicionInicioFantasma());
 		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance()));
 		Pacman.getInstance().setCeldaActual(this.mapa.get(getPosicionInicioPacman()));
 	}
 
-	private void crearPosiciones() {
-		Integer height;
-		for (height = 0 ; height < Constantes.LABERINTO_HEIGHT; height++){
-			Integer width;
-			for (width = 0 ; width < Constantes.LABERINTO_WIDTH; width++ ){
-				this.posiciones[height][width] = new Posicion(height, width);
-			}
-		}
-	}
-
-	public Posicion getPosicionInicioPacman() {
-		return this.posiciones[Constantes.PACMAN_INICIO_COL][Constantes.PACMAN_INICIO_FIL];
-	}
-
-	public Map<Posicion, Celda> getMapa() {
+	public Map<String, Celda> getMapa() {
 		return mapa;
 	}
 
-	public void setMapa(Map<Posicion, Celda> mapa) {
-		this.mapa = mapa;
-	}
-
-	public void construirCeldas(String archivoEntrada){
-		FileReader fr;
-		try {
-			fr = new FileReader(new File(archivoEntrada));
-			BufferedReader br = new BufferedReader(fr);
-			Integer lineIndex = 0;
-			String line;
-			while ((line = br.readLine()) != null){
-				Integer charIndex = 0;
-				Integer positionIndex = 0;
-				while (charIndex < 55){
-					char val = line.charAt(charIndex);
-					if (charIndex % 2 == 0){
-						Posicion posicion = this.posiciones[lineIndex][positionIndex];
-						Celda celda = new Celda(val, posicion);
-						this.mapa.put(posicion, celda);
-						relacionarCeldas(posicion, celda);
-						if (val == 'p'){
-							if (this.primerPortal == null){
-								this.primerPortal = posicion;
-							} else {
-								this.segundoPortal = posicion;
-							}
-						}
-						positionIndex++;
-					}
-					charIndex++;
-				}
-				lineIndex++;
-			}
-			asociarPortales();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void asociarPortales() {
-		Celda celdaUno = this.mapa.get(primerPortal);
-		Celda celdaDos = this.mapa.get(segundoPortal);
-		if (celdaUno != null && celdaDos!= null){
-			if (celdaUno.getCeldaAbajo()==null){
-				celdaUno.setCeldaAbajo(celdaDos);
-				celdaDos.setCeldaArriba(celdaUno);
-			} else if (celdaUno.getCeldaArriba()==null){
-				celdaUno.setCeldaArriba(celdaDos);
-				celdaDos.setCeldaAbajo(celdaUno);
-			} else if (celdaUno.getCeldaDerecha()==null){
-				celdaUno.setCeldaDerecha(celdaDos);
-				celdaDos.setCeldaIzquierda(celdaUno);
-			}
-			if (celdaUno.getCeldaIzquierda()==null){
-				celdaUno.setCeldaIzquierda(celdaDos);
-				celdaDos.setCeldaDerecha(celdaUno);
-			}
-		}
-	}
-
-	private void relacionarCeldas(Posicion posicion, Celda celda) {
-		Integer width = posicion.getWidth();
-		Integer height = posicion.getHeight();
-		if ((width-1) >= 0){
-			Posicion sigPosicionIzquierda = this.posiciones[height][width-1];
-			Celda celdaIzquierda = this.mapa.get(sigPosicionIzquierda);
-			asignarRelacionIzquieda(celda, celdaIzquierda);
-		}
-		if ((height-1)>=0){
-			Posicion sigPosicionArriba = this.posiciones[height-1][width];
-			Celda celdaArriba = this.mapa.get(sigPosicionArriba);
-			asignarRelacionArriba(celda, celdaArriba);
-		}
-	}
-
-	private void asignarRelacionArriba(Celda celda, Celda celdaArriba) {
-		if (celdaArriba != null){
-			celda.setCeldaArriba(celdaArriba);
-			celdaArriba.setCeldaAbajo(celda);
-		}
-	}
-
-	private void asignarRelacionIzquieda(Celda celda, Celda celdaIzquierda) {
-		if (celdaIzquierda != null){
-			celda.setCeldaIzquierda(celdaIzquierda);
-			celdaIzquierda.setCeldaDerecha(celda);
-		}
-	}
-
-	public Posicion getPosicionInicioFantasma() {
-		return this.posiciones[Constantes.FANTASMA_INICIO_COL][Constantes.FANTASMA_INICIO_FIL];
-	}
-
-
-	public Posicion getPosicionInicioLaberinto() {
-		return this.posiciones[0][0];
-	}
-
-	public void imprimir(){
-		System.out.println("----Imprimiendo laberinto -----");
-		Boolean hayAbajo = Boolean.TRUE;
-		Celda celda = mapa.get(getPosicionInicioLaberinto());
-		while (hayAbajo){
-			Boolean hayDerecha = Boolean.TRUE;
-			Celda celdaActual = celda;
-			while (hayDerecha){
-				imprimirCelda(celdaActual);
-				celdaActual = celdaActual.getCeldaDerecha();
-				if (celdaActual == null || celdaActual.esPortal()){
-					hayDerecha = Boolean.FALSE;
-					if (celdaActual!= null && celdaActual.esPortal()){
-						System.out.print(celdaActual);
-					}
-				}
-			}
-			System.out.println();
-			celda = celda.getCeldaAbajo();
-			if (celda == null){
-				hayAbajo = Boolean.FALSE;
-			}
-		}
-	}
-	
 	public void imprimirAXML(){
-		Posicion pacman = getPosicionInicioPacman();
-		Posicion fantasma = getPosicionInicioFantasma();
-		System.out.println("<laberinto ancho=\"" + Constantes.LABERINTO_WIDTH + "\" alto=\"" + Constantes.LABERINTO_HEIGHT +"\" nodoAncho=\"30\" " +
-				"nodoAlto=\"30\" inicioPacman=\""+pacman.getStringId()+"\" inicioFantasmas=\""+fantasma.getStringId()+"\">");
+		System.out.println("<laberinto ancho=\"" + this.cantCol + "\" alto=\"" + this.cantCol +"\" nodoAncho=\"30\" " +
+				"nodoAlto=\"30\" inicioPacman=\""+getPosicionInicioPacman()+"\" inicioFantasmas=\""+getPosicionInicioFantasma()+"\">");
 		Integer fila;
-		for(fila = 0; fila < Constantes.LABERINTO_HEIGHT; fila++){
+		for(fila = 0; fila < this.cantFil; fila++){
 			Integer columna;
-			for(columna = 0; columna < Constantes.LABERINTO_WIDTH; columna++){
-				Posicion p = this.posiciones[fila][columna];
-				String id = p.getStringId();
-				String col = p.getStringHeight();
-				String fil = p.getStringWidth();
-				Celda celda = this.mapa.get(p);
-				String content = celda.getContent();
-				String izquierda = "";
-				String derecha = "";
-				String arriba = "";
-				String abajo = "";
-				Celda celdaIzq = celda.getCeldaIzquierda();
-				if (celdaIzq != null){
-					izquierda = celdaIzq.getPosicion().getStringId();
-				}
-				Celda celdaDer = celda.getCeldaDerecha();
-				if (celdaDer != null){
-					derecha = celdaDer.getPosicion().getStringId();
-				}
-				Celda celdaArr = celda.getCeldaArriba();
-				if (celdaArr != null){
-					arriba = celdaArr.getPosicion().getStringId();
-				}
-				Celda celdaAba = celda.getCeldaAbajo();
-				if (celdaAba != null){
-					abajo = celdaAba.getPosicion().getStringId();
-				}
-				
-				System.out.println("\t<nodo id=\""+id+"\" fila=\""+fil+"\" columna=\""+col+"\" contiene=\""+content+"\" " +
+			for(columna = 0; columna < this.cantCol; columna++){
+				Celda celda = this.mapa.get(construirId(fila, columna));
+				if (celda == null){
+					System.out.println("\t<nodo id=\""+construirId(fila, columna)+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" " +
+							"contiene=\"\" " +
+							"izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\"/>");
+				} else {
+					String content = celda.getContent();
+					String izquierda = celda.getCeldaIzquierda();
+					String derecha = celda.getCeldaDerecha();
+					String arriba = celda.getCeldaArriba();
+					String abajo = celda.getCeldaAbajo();
+					System.out.println("\t<nodo id=\""+celda.getId()+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" contiene=\""+content+"\" " +
 						"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
+				}
 			}
 		}
 		System.out.println("</laberinto>");
 	}
 
-	private void imprimirCelda(Celda celdaActual) {
-		if (celdaActual.equals(Pacman.getInstance().getCeldaActual())){
-			System.out.print("P");
-		} else {
-			Boolean hayFantasma = Boolean.FALSE;
-			for (Fantasma fantasma : this.fantasmas) {
-				if (fantasma.getCeldaActual().equals(celdaActual)){
-					System.out.print("F");
-					hayFantasma = Boolean.TRUE;
-				}
-			}
-			if (!hayFantasma){
-				System.out.print(celdaActual);
-			}
-		}
+	private String construirId(Integer fila, Integer columna) {
+		return String.format("%02d%02d", fila, columna);
+	}
+	
+	private String formatearNro(Integer nro){
+		return String.format("%02d", nro);
 	}
 
 	public Boolean hayMasBolitas(){
@@ -245,6 +85,106 @@ public class Laberinto {
 
 	public List<Fantasma> getFantasmas() {
 		return fantasmas;
+	}
+
+	public Integer getCantFil() {
+		return cantFil;
+	}
+
+	public void setCantFil(Integer cantFil) {
+		this.cantFil = cantFil;
+	}
+
+	public Integer getCantCol() {
+		return cantCol;
+	}
+
+	public void setCantCol(Integer cantCol) {
+		this.cantCol = cantCol;
+	}
+
+	public Integer getNodoAncho() {
+		return nodoAncho;
+	}
+
+	public void setNodoAncho(Integer nodoAncho) {
+		this.nodoAncho = nodoAncho;
+	}
+
+	public Integer getNodoAlto() {
+		return nodoAlto;
+	}
+
+	public void setNodoAlto(Integer nodoAlto) {
+		this.nodoAlto = nodoAlto;
+	}
+
+	public void setInicioPacman(String inicioPacman) {
+		this.setPosicionInicioPacman(inicioPacman);
+	}
+
+	public void setInicioFantasma(String inicioFantasma) {
+		this.setPosicionInicioFantasma(inicioFantasma);
+	}
+
+	public void parsearNodo(String line) {
+		String id, izq, der, arr, aba, contiene;
+		id = izq = arr = der = aba = null; 
+		contiene = "";
+		Pattern idPat = Pattern.compile("id=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = idPat.matcher(line);
+		if (m.find()){
+			id = m.group(1);
+		}
+		Pattern contienePat = Pattern.compile("contiene=\"([^\"]*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		m = contienePat.matcher(line);
+		if (m.find()){
+			contiene = m.group(1);
+		}
+		Pattern izquierdaPat = Pattern.compile("izquierda=\"([^\"]*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		m = izquierdaPat.matcher(line);
+		if (m.find()){
+			izq = m.group(1);
+		}
+		Pattern derechaPat = Pattern.compile("derecha=\"([^\"]*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		m = derechaPat.matcher(line);
+		if (m.find()){
+			der = m.group(1);
+		}
+		Pattern arribaPat = Pattern.compile("arriba=\"([^\"]*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		m = arribaPat.matcher(line);
+		if (m.find()){
+			arr = m.group(1);
+		}
+		Pattern abajoPat = Pattern.compile("abajo=\"([^\"]*)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		m = abajoPat.matcher(line);
+		if (m.find()){
+			aba = m.group(1);
+		}
+		if (!(aba == null && arr == null && izq == null && der == null)){
+			Celda celda = new Celda(contiene, id);
+			celda.setCeldaAbajo(aba);
+			celda.setCeldaArriba(arr);
+			celda.setCeldaDerecha(der);
+			celda.setCeldaIzquierda(izq);
+			this.mapa.put(id, celda);
+		} 
+	}
+
+	public String getPosicionInicioFantasma() {
+		return posicionInicioFantasma;
+	}
+
+	public void setPosicionInicioFantasma(String posicionInicioFantasma) {
+		this.posicionInicioFantasma = posicionInicioFantasma;
+	}
+
+	public String getPosicionInicioPacman() {
+		return posicionInicioPacman;
+	}
+
+	public void setPosicionInicioPacman(String posicionInicioPacman) {
+		this.posicionInicioPacman = posicionInicioPacman;
 	}
 
 }
