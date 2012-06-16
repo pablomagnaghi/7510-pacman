@@ -47,7 +47,7 @@ public class Pacman {
 		else if (Constantes.IZQUIERDA.equals(direccion)){
 			siguienteCeldaId = this.celdaActual.getCeldaIzquierda();
 		}
-		if (siguienteCeldaId != ""){
+		if (!siguienteCeldaId.isEmpty()){
 			return Boolean.TRUE;
 		}
 		this.siguienteCeldaId = this.celdaActual.getId();
