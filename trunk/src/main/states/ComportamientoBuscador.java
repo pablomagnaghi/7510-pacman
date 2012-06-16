@@ -1,5 +1,6 @@
 package main.states;
 
+import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
 
@@ -19,6 +20,13 @@ public class ComportamientoBuscador implements Comportamiento{
 
 	}
 
-	
-	
+	@Override
+	public String getNombre(Fantasma fantasma) {
+		if (fantasma.getIra() == Constantes.IRA_ESTADO_FURIOSO){
+			return Constantes.BUSCADOR;
+		} else {
+			return Constantes.BUSCADOR_T;
+		}
+	}
+
 }

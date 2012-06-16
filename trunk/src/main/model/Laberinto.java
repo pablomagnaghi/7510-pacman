@@ -31,7 +31,8 @@ public class Laberinto {
 	
 	public Laberinto(String input){
 		Celda celda = this.mapa.get(getPosicionInicioFantasma());
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance()));
+		Integer i = 1;
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance(), i.toString()));
 		Pacman.getInstance().setCeldaActual(this.mapa.get(getPosicionInicioPacman()));
 	}
 
@@ -39,7 +40,7 @@ public class Laberinto {
 		return mapa;
 	}
 
-	public void imprimirAXML(){
+	public void imprimirLaberintoAXml(){
 		System.out.println("<laberinto ancho=\"" + this.cantCol + "\" alto=\"" + this.cantCol +"\" nodoAncho=\"30\" " +
 				"nodoAlto=\"30\" inicioPacman=\""+getPosicionInicioPacman()+"\" inicioFantasmas=\""+getPosicionInicioFantasma()+"\">");
 		Integer fila;
@@ -72,7 +73,7 @@ public class Laberinto {
 	private String formatearNro(Integer nro){
 		return String.format("%02d", nro);
 	}
-
+	
 	public Boolean hayMasBolitas(){
 		Collection<Celda> values = this.mapa.values();
 		for (Celda celda : values) {
@@ -185,6 +186,20 @@ public class Laberinto {
 
 	public void setPosicionInicioPacman(String posicionInicioPacman) {
 		this.posicionInicioPacman = posicionInicioPacman;
+	}
+
+	public Celda getCelda(String siguienteCelda) {
+		return this.mapa.get(siguienteCelda);
+	}
+
+	public void imprimirActoresAXml() {
+		System.out.println("<juego posicionPacman=\"" + Pacman.getInstance().getCeldaActual().getId() +"\" fila=\""+Pacman.getInstance().getCeldaActual().getFila() + "\" " +
+			" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">");
+		for (Fantasma f : this.fantasmas) {
+			System.out.println("<fantasma id=\""+f.getId()+"\" nodo=\""+f.getCeldaActual().getId()+"\" " + 
+			"fila=\""+f.getCeldaActual().getFila()+"\" columna=\""+f.getCeldaActual().getColumna()+"\" sentido=\""+f.getSentido()+"\" personalidad=\"" + f.getPersonalidad() + "\" estado=\""+f.getEstado().getNombre()+"\"/>");
+		}
+		System.out.println("</juego>");
 	}
 
 }

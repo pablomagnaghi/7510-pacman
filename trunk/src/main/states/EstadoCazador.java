@@ -21,7 +21,7 @@ public class EstadoCazador implements Estado{
 
 	@Override
 	public String incrementarIra(Fantasma fantasma) {
-		if (fantasma.getIra() < Constantes.IRA_MAXIMA){
+		if (fantasma.getIra() < Constantes.IRA_ESTADO_FURIOSO){
 			fantasma.setIra(fantasma.getIra()+1);
 			return Constantes.AUMENTAR_IRA_CAZADOR;
 		} else {

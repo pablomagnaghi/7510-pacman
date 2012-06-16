@@ -30,7 +30,7 @@ public class ControladorFantasma implements Observer{
 	public void update(Observable o, Object arg) {
 		if (o.equals(cronometroMuerto)){
 			this.fantasma.revivir();
-			this.fantasma.setIra(Constantes.IRA_MINIMA);
+			this.fantasma.setIra(Constantes.IRA_ESTADO_NORMAL);
 		} else {
 			this.fantasma.convertirEnCazador();
 		}

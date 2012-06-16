@@ -12,19 +12,22 @@ public class Fantasma{
 	private Integer ira;
 	private String color;
 	private Celda celdaActual;
+	private String id;
+	private String sentido;
 	
-	public Fantasma(String color, Celda inicial, Comportamiento comportamiento){
+	public Fantasma(String color, Celda inicial, Comportamiento comportamiento, String id){
 		this.comportamiento = comportamiento;
 		this.setEstado(EstadoCazador.getInstance());
-		this.ira = Constantes.IRA_MINIMA;
+		this.ira = Constantes.IRA_ESTADO_NORMAL;
 		this.setColor(color);
 		this.celdaActual = inicial;
+		this.id =(id);
 	}
 	
 	public Fantasma(){
 		System.out.println("Iniciando fantasma");
 		this.setEstado(EstadoCazador.getInstance());
-		this.ira = Constantes.IRA_MINIMA;
+		this.ira = Constantes.IRA_ESTADO_NORMAL;
 	}
 	
 	public String mover(){
@@ -104,6 +107,22 @@ public class Fantasma{
 	
 	public Boolean estaMuerto(){
 		return this.estado.equals(EstadoMuerto.getInstance());
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getSentido() {
+		return this.sentido;
+	}
+
+	public void setSentido(String sentido) {
+		this.sentido = sentido;
+	}
+
+	public String getPersonalidad() {
+		return this.comportamiento.getNombre(this);
 	}
 
 }

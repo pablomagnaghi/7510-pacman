@@ -80,7 +80,7 @@ public class ManejadorJuego {
 	
 	public void correrJuego(){
 		Boolean finished = false;
-		ManejadorTurnos.getInstance().setFantasmas(laberinto.getFantasmas());
+		ManejadorTurnos.getInstance().setLaberinto(laberinto);
 		ManejadorReglas.getInstance().setLaberinto(laberinto);
 		while (!finished){
 			ManejadorTurnos.getInstance().ejecutarTurno();
@@ -99,6 +99,8 @@ public class ManejadorJuego {
 			}else {
 				System.out.println("Fin, no hay movimientos del pacman");
 			}
+			this.laberinto.imprimirLaberintoAXml();
+			this.laberinto.imprimirActoresAXml();
 		}
 	}
 	

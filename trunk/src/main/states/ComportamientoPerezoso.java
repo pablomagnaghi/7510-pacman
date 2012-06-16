@@ -1,5 +1,6 @@
 package main.states;
 
+import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
 
@@ -17,6 +18,11 @@ public class ComportamientoPerezoso implements Comportamiento{
 	@Override
 	public void realizarMovimiento(Fantasma fantasma) {
 		
+	}
+
+	@Override
+	public String getNombre(Fantasma fantasma) {
+		return Constantes.PEREZOSO;
 	}
 
 }
