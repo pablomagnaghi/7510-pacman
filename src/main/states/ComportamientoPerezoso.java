@@ -4,7 +4,7 @@ import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
 
-public class ComportamientoPerezoso implements Comportamiento{
+public class ComportamientoPerezoso extends Comportamiento{
 
 	private static ComportamientoPerezoso instance = null;
 
@@ -16,13 +16,18 @@ public class ComportamientoPerezoso implements Comportamiento{
 	}
 	
 	@Override
-	public void realizarMovimiento(Fantasma fantasma) {
-		
+	public void realizarMovimientoCazador(Fantasma fantasma) {
+		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ACERCAR);
 	}
 
 	@Override
 	public String getNombre(Fantasma fantasma) {
 		return Constantes.PEREZOSO;
+	}
+
+	@Override
+	public void realizarMovimientoPresa(Fantasma fantasma) {
+		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ESCAPAR);
 	}
 
 }

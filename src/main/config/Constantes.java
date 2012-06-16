@@ -17,7 +17,8 @@ public abstract class Constantes {
 	public static final Integer FANTASMA_VELOCIDAD_NORMAL	= 3;
 	public static final Integer FANTASMA_VELOCIDAD_MOLESTO	= 2;
 	public static final Integer FANTASMA_VELOCIDAD_FURIOSO	= 2;
-
+	public static final Integer DISTANCIA_MAX				= 60000;
+	
 	public static final Integer FANTASMA_TICKS_ENOJO		= 8;
 	
 	public static final String COLOR_ROJO					= "Rojo";
@@ -60,4 +61,10 @@ public abstract class Constantes {
 	public static final String PEREZOSO 					= "perezoso";
 	public static final String BUSCADOR 					= "buscador";
 	public static final String BUSCADOR_T 					= "buscadorT";
+	public static final Integer DISTANCIA_ZONZO 			= 1;
+	public static final Integer DISTANCIA_PEREZOSO 			= 2;
+	public static final Integer DISTANCIA_BUSCADOR 			= 3;
+	public static final Integer ACCION_ESCAPAR 				= 0;
+	public static final Integer ACCION_ACERCAR 				= 1;
+	
 }

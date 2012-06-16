@@ -15,7 +15,7 @@ public class EstadoPresa implements Estado{
 	
 	@Override
 	public String mover(Fantasma fantasma) {
-		fantasma.getComportamiento().realizarMovimiento(fantasma);
+		fantasma.getComportamiento().realizarMovimientoPresa(fantasma);
 		return(Constantes.MOVER_PRESA);
 	}
 

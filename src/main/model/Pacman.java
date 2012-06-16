@@ -1,6 +1,5 @@
 package main.model;
 
-import main.config.Constantes;
 
 public class Pacman {
 
@@ -34,19 +33,7 @@ public class Pacman {
 	}
 
 	public Boolean mover(String direccion) {
-		siguienteCeldaId = "";
-		if (Constantes.ABAJO.equals(direccion)){
-			siguienteCeldaId = this.celdaActual.getCeldaAbajo();
-		} 
-		else if (Constantes.ARRIBA.equals(direccion)){
-			siguienteCeldaId = this.celdaActual.getCeldaArriba();
-		} 
-		else if (Constantes.DERECHA.equals(direccion)){
-			siguienteCeldaId = this.celdaActual.getCeldaDerecha();
-		} 
-		else if (Constantes.IZQUIERDA.equals(direccion)){
-			siguienteCeldaId = this.celdaActual.getCeldaIzquierda();
-		}
+		siguienteCeldaId = this.celdaActual.getSiguienteCelda(direccion);
 		if (!siguienteCeldaId.isEmpty()){
 			return Boolean.TRUE;
 		}
