@@ -1,5 +1,6 @@
 package main.states;
 
+import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
 
@@ -17,6 +18,11 @@ public class ComportamientoZonzo implements Comportamiento{
 			instance = new ComportamientoZonzo();
 		}
 		return instance;
+	}
+
+	@Override
+	public String getNombre(Fantasma fantasma) {
+		return Constantes.ZONZO;
 	}
 
 }

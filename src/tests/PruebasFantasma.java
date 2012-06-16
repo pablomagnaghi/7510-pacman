@@ -16,7 +16,7 @@ public class PruebasFantasma {
 	public void crearFantasma() {
 		Fantasma f = new Fantasma();
 		assertTrue(f.getEstado().equals(EstadoCazador.getInstance()));
-		assertTrue(f.getIra().equals(Constantes.IRA_MINIMA));
+		assertTrue(f.getIra().equals(Constantes.IRA_ESTADO_NORMAL));
 	}
 	
 	@Test

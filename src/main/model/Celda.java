@@ -1,5 +1,8 @@
 package main.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import main.config.Constantes;
 import main.states.BolitaGrande;
 import main.states.BolitaNormal;
@@ -108,5 +111,23 @@ public class Celda {
 
 	private void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getFila(){
+		Pattern p = Pattern.compile("(\\d{2})\\d{2}");
+		Matcher m = p.matcher(id);
+		if (m.find()){
+			return m.group(1);
+		}
+		return null;
+	}
+	
+	public String getColumna(){
+		Pattern p = Pattern.compile("\\d{2}(\\d{2})");
+		Matcher m = p.matcher(id);
+		if (m.find()){
+			return m.group(1);
+		}
+		return null;
 	}
 }

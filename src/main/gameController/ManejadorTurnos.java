@@ -2,93 +2,108 @@ package main.gameController;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.config.Constantes;
+import main.model.Celda;
 import main.model.Fantasma;
+import main.model.Laberinto;
 import main.model.Pacman;
 
 public class ManejadorTurnos {
 
 	private static ManejadorTurnos instance = null;
 	
-	private List<Fantasma> fantasmas;
-	private BufferedReader br;
-	private Integer ordenActual;
+	private String sentido;
+	private Laberinto laberinto;
+	private Integer tick = 1;
+	private Integer turnoPacman = 1;
+	private Boolean hayMas = Boolean.TRUE;
 	
-	private ManejadorTurnos(){
-		FileReader fr;
+	public String leerTurnoPacman(){
+		String direccion = null;
 		try {
-			fr = new FileReader(new File(Constantes.ARCHIVO_PACMAN));
-			this.br = new BufferedReader(fr);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public Integer leerTurnoPacman(){
-		String line;
-		try {
-			if ((line = br.readLine()) != null){
-				ordenActual = parsearOrden(line);
-			} else {
-				ordenActual = Constantes.PACMAN_FIN;
+			FileReader fr = new FileReader(new File(Constantes.ARCHIVO_PACMAN + turnoPacman));
+			this.turnoPacman++;
+			String line;
+			BufferedReader br = new BufferedReader(fr);
+			while ((line = br.readLine()) != null && direccion == null){
+				direccion = parsearOrden(line);
 			}
+			
+			fr.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			this.hayMas = Boolean.FALSE;
 		}
-		return ordenActual;
+		return direccion;
 	}
 	
-	private Integer parsearOrden(String line) {
-		if (Constantes.ABAJO.equals(line)){
-			return Constantes.PACMAN_ABAJO;
-		} else if (Constantes.ARRIBA.equals(line)){
-			return Constantes.PACMAN_ARRIBA;
-		} else if (Constantes.IZQUIERDA.equals(line)){
-			return Constantes.PACMAN_IZQUIERDA;
-		} else if (Constantes.DERECHA.equals(line)){
-			return Constantes.PACMAN_DERECHA;
-		} 
-		return Constantes.PACMAN_FIN;
+	
+	
+	private String parsearOrden(String line) {
+		Pattern ordenPat = Pattern.compile("<pacman\\s*direccion=\"([^\"]*)\"/>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = ordenPat.matcher(line);
+		if (m.find()){
+			return m.group(1);
+		}
+		return null;
 	}
 
 	public void ejecutarTurno(){
-		Integer movPacman = 0;
-		while (movPacman < Constantes.PACMAN_VELOCIDAD){
-			if (Pacman.getInstance().getCeldaActual().esBifurcacion()){
-				Pacman.getInstance().mover(leerTurnoPacman());
-			} else {
-				if (!Pacman.getInstance().mover(this.ordenActual)){
-					Pacman.getInstance().mover(leerTurnoPacman());
-				}
-			}
-			movPacman++;
+		if (this.tick % Constantes.PACMAN_VELOCIDAD == 0){
+			moverPacman();
 		}
-		Iterator<Fantasma> it = fantasmas.iterator();
+
+		Iterator<Fantasma> it = this.laberinto.getFantasmas().iterator();
 		while (it.hasNext()){
 			Fantasma fantasma = it.next();
-			fantasma.mover();
+			if (((this.tick % Constantes.FANTASMA_VELOCIDAD_FURIOSO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_FURIOSO))
+					||
+				 ((this.tick % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
+				 	||
+				 ((this.tick % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
+				fantasma.mover();
+			}
+			
+			if (this.tick % Constantes.FANTASMA_TICKS_ENOJO == 0){
+				fantasma.incrementarIra();
+			}
 		}
+
+		this.tick++;
 	}
 	
-	public Boolean esFinDeJuego(){
-		return (Constantes.PACMAN_FIN.equals(this.ordenActual));
+	private void moverPacman() {
+		String direccionPacman = leerTurnoPacman();
+		if (Pacman.getInstance().mover(direccionPacman)){
+			this.sentido = direccionPacman;
+		} else {
+			Pacman.getInstance().mover(this.sentido);
+		}
+		Celda celda = this.laberinto.getCelda(Pacman.getInstance().getSiguienteCelda());
+		Pacman.getInstance().setCeldaActual(celda);
+		Pacman.getInstance().setSentido(this.sentido);
 	}
-	
-	public void setFantasmas(List<Fantasma> fantasmas){
-		this.fantasmas = fantasmas;
-	}
-	
+
+
+
 	public static ManejadorTurnos getInstance() {
 		if (instance == null){
 			instance = new ManejadorTurnos();
 		}
 		return instance;
+	}
+
+	public void setLaberinto(Laberinto laberinto) {
+		this.laberinto = laberinto;
+	}
+
+	public Boolean esFinDeJuego() {
+		return hayMas;
 	}
 	
 }

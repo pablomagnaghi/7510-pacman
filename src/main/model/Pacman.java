@@ -19,6 +19,7 @@ public class Pacman {
 
 	private Celda celdaActual;
 	private String siguienteCeldaId;
+	private String sentido;
 
 	public Celda getCeldaActual() {
 		return celdaActual;
@@ -32,23 +33,24 @@ public class Pacman {
 		System.out.println("Eliminando pacman");
 	}
 
-	public Boolean mover(Integer direccion) {
+	public Boolean mover(String direccion) {
 		siguienteCeldaId = "";
-		if (Constantes.PACMAN_ABAJO.equals(direccion)){
+		if (Constantes.ABAJO.equals(direccion)){
 			siguienteCeldaId = this.celdaActual.getCeldaAbajo();
 		} 
-		else if (Constantes.PACMAN_ARRIBA.equals(direccion)){
+		else if (Constantes.ARRIBA.equals(direccion)){
 			siguienteCeldaId = this.celdaActual.getCeldaArriba();
 		} 
-		else if (Constantes.PACMAN_DERECHA.equals(direccion)){
+		else if (Constantes.DERECHA.equals(direccion)){
 			siguienteCeldaId = this.celdaActual.getCeldaDerecha();
 		} 
-		else if (Constantes.PACMAN_IZQUIERDA.equals(direccion)){
+		else if (Constantes.IZQUIERDA.equals(direccion)){
 			siguienteCeldaId = this.celdaActual.getCeldaIzquierda();
 		}
 		if (siguienteCeldaId != ""){
 			return Boolean.TRUE;
 		}
+		this.siguienteCeldaId = this.celdaActual.getId();
 		return Boolean.FALSE;
 	}
 	
@@ -59,6 +61,14 @@ public class Pacman {
 	
 	public String getSiguienteCelda(){
 		return this.siguienteCeldaId;
+	}
+
+	public String getSentido() {
+		return this.sentido;
+	}
+
+	public void setSentido(String sentido) {
+		this.sentido = sentido;
 	}
 
 }
