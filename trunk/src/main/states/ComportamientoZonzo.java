@@ -4,13 +4,13 @@ import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
 
-public class ComportamientoZonzo implements Comportamiento{
+public class ComportamientoZonzo extends Comportamiento{
 	
 	private static ComportamientoZonzo instance = null;
 
 	@Override
-	public void realizarMovimiento(Fantasma fantasma) {
-		
+	public void realizarMovimientoCazador(Fantasma fantasma) {
+		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ACERCAR);
 	}
 
 	public static ComportamientoZonzo getInstance() {
@@ -23,6 +23,11 @@ public class ComportamientoZonzo implements Comportamiento{
 	@Override
 	public String getNombre(Fantasma fantasma) {
 		return Constantes.ZONZO;
+	}
+
+	@Override
+	public void realizarMovimientoPresa(Fantasma fantasma) {
+		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ESCAPAR);
 	}
 
 }

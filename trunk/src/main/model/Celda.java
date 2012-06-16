@@ -27,46 +27,63 @@ public class Celda {
 		} 
 		this.setId(id);
 	}
-
-	public String getCeldaIzquierda() {
-		if (this.idCeldaIzquierda == null){
+	
+	public String getSiguienteCelda(String direccion){
+		String siguienteCelda = null;
+		if (Constantes.DERECHA.equals(direccion)){
+			siguienteCelda = idCeldaDerecha;
+		} else if (Constantes.IZQUIERDA.equals(direccion)){
+			siguienteCelda = idCeldaIzquierda;
+		} else if (Constantes.ARRIBA.equals(direccion)){
+			siguienteCelda = idCeldaArriba;
+		} else if (Constantes.ABAJO.equals(direccion)){
+			siguienteCelda = idCeldaAbajo;
+		}
+		if (siguienteCelda == null){
 			return "";
 		}
-		return idCeldaIzquierda;
+		return siguienteCelda;
 	}
 
+//	public String getCeldaIzquierda() {
+//		if (this.idCeldaIzquierda == null){
+//			return "";
+//		}
+//		return idCeldaIzquierda;
+//	}
+//
 	public void setCeldaIzquierda(String celdaIzquierda) {
 		this.idCeldaIzquierda = celdaIzquierda;
 	}
-
-	public String getCeldaDerecha() {
-		if (this.idCeldaDerecha == null){
-			return "";
-		}
-		return idCeldaDerecha;
-	}
-
+//
+//	public String getCeldaDerecha() {
+//		if (this.idCeldaDerecha == null){
+//			return "";
+//		}
+//		return idCeldaDerecha;
+//	}
+//	
 	public void setCeldaDerecha(String celdaDerecha) {
 		this.idCeldaDerecha = celdaDerecha;
 	}
-
-	public String getCeldaArriba() {
-		if (this.idCeldaArriba == null){
-			return "";
-		}
-		return idCeldaArriba;
-	}
-
+//
+//	public String getCeldaArriba() {
+//		if (this.idCeldaArriba == null){
+//			return "";
+//		}
+//		return idCeldaArriba;
+//	}
+//
 	public void setCeldaArriba(String celdaArriba) {
 		this.idCeldaArriba = celdaArriba;
 	}
-
-	public String getCeldaAbajo() {
-		if (this.idCeldaAbajo == null){
-			return "";
-		}
-		return idCeldaAbajo;
-	}
+//
+//	public String getCeldaAbajo() {
+//		if (this.idCeldaAbajo == null){
+//			return "";
+//		}
+//		return idCeldaAbajo;
+//	}
 
 	public void setCeldaAbajo(String celdaAbajo) {
 		this.idCeldaAbajo = celdaAbajo;
@@ -113,21 +130,49 @@ public class Celda {
 		this.id = id;
 	}
 	
-	public String getFila(){
+	private static String getFila(String identificador){
 		Pattern p = Pattern.compile("(\\d{2})\\d{2}");
-		Matcher m = p.matcher(id);
+		Matcher m = p.matcher(identificador);
 		if (m.find()){
 			return m.group(1);
 		}
 		return null;
 	}
 	
-	public String getColumna(){
+	private static String getColumna(String identificador){
 		Pattern p = Pattern.compile("\\d{2}(\\d{2})");
-		Matcher m = p.matcher(id);
+		Matcher m = p.matcher(identificador);
 		if (m.find()){
 			return m.group(1);
 		}
 		return null;
+	}
+	
+	public static Integer getDistanciaEntreCeldas(Celda uno, Celda dos){
+		return getDistanciaEntreCeldas(uno.id, dos.id);
+	}
+	
+	public static Integer getDistanciaEntreCeldas(String idUno, String idDos){
+		Integer filUno = new Integer(getFila(idUno));
+		Integer filDos = new Integer(getFila(idDos));
+		Integer colUno = new Integer(getColumna(idUno));
+		Integer colDos = new Integer(getColumna(idDos));
+		Integer distanciaFila = filUno - filDos;
+		if (distanciaFila < 0){
+			distanciaFila = distanciaFila * -1;
+		}
+		Integer distanciaCol = colUno - colDos;
+		if (distanciaCol < 0){
+			distanciaCol = distanciaCol * -1;
+		}
+		return distanciaCol + distanciaFila;
+	}
+
+	public String getColumna() {
+		return getColumna(this.id);
+	}
+	
+	public String getFila() {
+		return getFila(this.id);
 	}
 }

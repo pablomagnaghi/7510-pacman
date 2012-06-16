@@ -47,10 +47,10 @@ public class Laberinto {
 							"izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\"/>");
 				} else {
 					String content = celda.getContent();
-					String izquierda = celda.getCeldaIzquierda();
-					String derecha = celda.getCeldaDerecha();
-					String arriba = celda.getCeldaArriba();
-					String abajo = celda.getCeldaAbajo();
+					String izquierda = celda.getSiguienteCelda(Constantes.IZQUIERDA);
+					String derecha = celda.getSiguienteCelda(Constantes.DERECHA);
+					String arriba = celda.getSiguienteCelda(Constantes.ARRIBA);
+					String abajo = celda.getSiguienteCelda(Constantes.ABAJO);
 					System.out.println("\t<nodo id=\""+celda.getId()+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" contiene=\""+content+"\" " +
 							"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
 				}
