@@ -17,33 +17,33 @@ import main.model.Pacman;
 public class ManejadorTurnos {
 
 	private static ManejadorTurnos instance = null;
-	
+
 	private String sentido;
 	private Laberinto laberinto;
 	private Integer tick = 1;
 	private Integer turnoPacman = 1;
 	private Boolean hayMas = Boolean.TRUE;
-	
+
 	public String leerTurnoPacman(){
 		String direccion = null;
 		try {
-			FileReader fr = new FileReader(new File(Constantes.ARCHIVO_PACMAN + turnoPacman));
+			FileReader fr = new FileReader(new File(Constantes.ARCHIVO_PACMAN + turnoPacman + ".txt"));
 			this.turnoPacman++;
 			String line;
 			BufferedReader br = new BufferedReader(fr);
 			while ((line = br.readLine()) != null && direccion == null){
 				direccion = parsearOrden(line);
 			}
-			
+
 			fr.close();
 		} catch (IOException e) {
 			this.hayMas = Boolean.FALSE;
 		}
 		return direccion;
 	}
-	
-	
-	
+
+
+
 	private String parsearOrden(String line) {
 		Pattern ordenPat = Pattern.compile("<pacman\\s*direccion=\"([^\"]*)\"/>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 		Matcher m = ordenPat.matcher(line);
@@ -63,12 +63,12 @@ public class ManejadorTurnos {
 			Fantasma fantasma = it.next();
 			if (((this.tick % Constantes.FANTASMA_VELOCIDAD_FURIOSO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_FURIOSO))
 					||
-				 ((this.tick % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
-				 	||
-				 ((this.tick % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
+					((this.tick % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
+					||
+					((this.tick % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
 				fantasma.mover();
 			}
-			
+
 			if (this.tick % Constantes.FANTASMA_TICKS_ENOJO == 0){
 				fantasma.incrementarIra();
 			}
@@ -76,20 +76,23 @@ public class ManejadorTurnos {
 
 		this.tick++;
 	}
-	
+
 	private void moverPacman() {
 		String direccionPacman = leerTurnoPacman();
-		if (Pacman.getInstance().mover(direccionPacman)){
+		Boolean resultadoDeMovimiento;
+		resultadoDeMovimiento = Pacman.getInstance().mover(direccionPacman); 
+		if (resultadoDeMovimiento){
 			this.sentido = direccionPacman;
 		} else {
-			Pacman.getInstance().mover(this.sentido);
+			resultadoDeMovimiento = Pacman.getInstance().mover(this.sentido);
 		}
-		Celda celda = this.laberinto.getCelda(Pacman.getInstance().getSiguienteCelda());
-		Pacman.getInstance().setCeldaActual(celda);
-		Pacman.getInstance().setSentido(this.sentido);
+		if (resultadoDeMovimiento){
+			Celda celda = this.laberinto.getCelda(Pacman.getInstance().getSiguienteCelda());
+			Pacman.getInstance().setCeldaActual(celda);
+			Pacman.getInstance().setSentido(this.sentido);
+			celda.visitarPorPacman();
+		}
 	}
-
-
 
 	public static ManejadorTurnos getInstance() {
 		if (instance == null){
@@ -103,7 +106,7 @@ public class ManejadorTurnos {
 	}
 
 	public Boolean esFinDeJuego() {
-		return hayMas;
+		return !hayMas;
 	}
-	
+
 }
