@@ -21,19 +21,12 @@ public class Laberinto {
 	private Integer cantCol;
 	private Integer nodoAncho;
 	private Integer nodoAlto;
-	
+
 	public Laberinto(Integer filas, Integer columnas){
 		this.cantFil = filas;
 		this.cantCol = columnas;
 		this.mapa = new HashMap<String, Celda>();
 		this.fantasmas = new ArrayList<Fantasma>();
-	}
-	
-	public Laberinto(String input){
-		Celda celda = this.mapa.get(getPosicionInicioFantasma());
-		Integer i = 1;
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance(), i.toString()));
-		Pacman.getInstance().setCeldaActual(this.mapa.get(getPosicionInicioPacman()));
 	}
 
 	public Map<String, Celda> getMapa() {
@@ -59,7 +52,7 @@ public class Laberinto {
 					String arriba = celda.getCeldaArriba();
 					String abajo = celda.getCeldaAbajo();
 					System.out.println("\t<nodo id=\""+celda.getId()+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" contiene=\""+content+"\" " +
-						"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
+							"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
 				}
 			}
 		}
@@ -69,11 +62,11 @@ public class Laberinto {
 	private String construirId(Integer fila, Integer columna) {
 		return String.format("%02d%02d", fila, columna);
 	}
-	
+
 	private String formatearNro(Integer nro){
 		return String.format("%02d", nro);
 	}
-	
+
 	public Boolean hayMasBolitas(){
 		Collection<Celda> values = this.mapa.values();
 		for (Celda celda : values) {
@@ -188,18 +181,26 @@ public class Laberinto {
 		this.posicionInicioPacman = posicionInicioPacman;
 	}
 
-	public Celda getCelda(String siguienteCelda) {
-		return this.mapa.get(siguienteCelda);
+	public Celda getCelda(String id) {
+		return this.mapa.get(id);
 	}
 
 	public void imprimirActoresAXml() {
 		System.out.println("<juego posicionPacman=\"" + Pacman.getInstance().getCeldaActual().getId() +"\" fila=\""+Pacman.getInstance().getCeldaActual().getFila() + "\" " +
-			" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">");
+				" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">");
 		for (Fantasma f : this.fantasmas) {
 			System.out.println("<fantasma id=\""+f.getId()+"\" nodo=\""+f.getCeldaActual().getId()+"\" " + 
-			"fila=\""+f.getCeldaActual().getFila()+"\" columna=\""+f.getCeldaActual().getColumna()+"\" sentido=\""+f.getSentido()+"\" personalidad=\"" + f.getPersonalidad() + "\" estado=\""+f.getEstado().getNombre()+"\"/>");
+					"fila=\""+f.getCeldaActual().getFila()+"\" columna=\""+f.getCeldaActual().getColumna()+"\" sentido=\""+f.getSentido()+"\" personalidad=\"" + f.getPersonalidad() + "\" estado=\""+f.getEstado().getNombre()+"\"/>");
 		}
 		System.out.println("</juego>");
+	}
+
+	public void inicializarActores() {
+		Pacman.getInstance().setCeldaActual(this.getCelda(getPosicionInicioPacman()));
+		Celda celda = this.getCelda(getPosicionInicioFantasma());
+		Integer i = 0;
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance(), i.toString()));
+
 	}
 
 }

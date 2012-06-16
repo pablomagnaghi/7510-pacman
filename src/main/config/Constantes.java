@@ -4,7 +4,7 @@ public abstract class Constantes {
 
 	public static final String ARCHIVO_LABERINTO 			= "./././res/Laberinto.xml";
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
-	public static final String ARCHIVO_PACMAN				= "./././res/Ordenes1.txt";
+	public static final String ARCHIVO_PACMAN				= "./././res/Ordenes.txt";
 	public static final String DERECHA						= "derecha";
 	public static final String ABAJO						= "abajo";
 	public static final String ARRIBA						= "arriba";
