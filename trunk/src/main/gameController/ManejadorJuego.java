@@ -34,6 +34,7 @@ public class ManejadorJuego {
 			while ((line = br.readLine()) != null){
 				this.laberinto.parsearNodo(line);
 			}
+			this.laberinto.inicializarActores();
 		fr.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -99,7 +100,6 @@ public class ManejadorJuego {
 			}else {
 				System.out.println("Fin, no hay movimientos del pacman");
 			}
-			this.laberinto.imprimirLaberintoAXml();
 			this.laberinto.imprimirActoresAXml();
 		}
 	}
