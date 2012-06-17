@@ -109,10 +109,10 @@ public class Celda {
 	}
 
 	public Boolean esBifurcacion(){
-		Boolean celdaAbajoPosible = this.idCeldaAbajo != null; 
-		Boolean celdaArribaPosible = this.idCeldaArriba != null;
-		Boolean celdaDerechaPosible = this.idCeldaDerecha != null;
-		Boolean celdaIzquierdaPosible = this.idCeldaIzquierda != null;
+		Boolean celdaAbajoPosible = (this.idCeldaAbajo != null && !"".equals(this.idCeldaAbajo)); 
+		Boolean celdaArribaPosible = (this.idCeldaArriba != null && !"".equals(this.idCeldaArriba));
+		Boolean celdaDerechaPosible = (this.idCeldaDerecha != null && !"".equals(this.idCeldaDerecha));
+		Boolean celdaIzquierdaPosible = (this.idCeldaIzquierda != null && !"".equals(this.idCeldaIzquierda));
 		Boolean bifurcacionPosibleUno = celdaDerechaPosible && celdaIzquierdaPosible && (celdaAbajoPosible || celdaArribaPosible);
 		Boolean bifurcacionPosibleDos = celdaAbajoPosible && celdaArribaPosible && (celdaIzquierdaPosible || celdaDerechaPosible);
 		return (bifurcacionPosibleUno || bifurcacionPosibleDos);
