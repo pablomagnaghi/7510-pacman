@@ -33,7 +33,7 @@ public class ManejadorReglas implements Observer{
 		}
 	}
 
-	private void chequearEstadoActores(){
+	public void chequearActoresMuertos(){
 		Iterator<Fantasma> it = this.laberinto.getFantasmas().iterator();
 		while (it.hasNext()){
 			Fantasma fantasma = it.next();
@@ -48,7 +48,7 @@ public class ManejadorReglas implements Observer{
 		}
 	}
 	
-	private void chequearTiempos(){
+	public void chequearTiempos(){
 		if (this.cronometroPresaContando){
 			if (cantTicks < tiempoPresa){
 				System.out.println("Sumando tiempoPresa");
@@ -75,11 +75,6 @@ public class ManejadorReglas implements Observer{
 			instance = new ManejadorReglas();
 		}
 		return instance;
-	}
-
-	public void chequearSituacion(){
-		this.chequearEstadoActores();
-		this.chequearTiempos();
 	}
 
 	public Boolean esFinJuego() {

@@ -25,6 +25,7 @@ public class Fantasma{
 		this.setColor(color);
 		this.celdaActual = inicial;
 		this.id =(id);
+		this.sentido = Constantes.IZQUIERDA;
 	}
 
 	public Fantasma(){

@@ -16,10 +16,10 @@ public abstract class Constantes {
 	public static final Integer PACMAN_VELOCIDAD			= 2;
 	public static final Integer FANTASMA_VELOCIDAD_NORMAL	= 3;
 	public static final Integer FANTASMA_VELOCIDAD_MOLESTO	= 2;
-	public static final Integer FANTASMA_VELOCIDAD_FURIOSO	= 2;
+	public static final Integer FANTASMA_VELOCIDAD_FURIOSO	= 1;
 	public static final Integer DISTANCIA_MAX				= 60000;
 	
-	public static final Integer FANTASMA_TICKS_ENOJO		= 8;
+	public static final Integer FANTASMA_TICKS_ENOJO		= 2;
 	
 	public static final String COLOR_ROJO					= "Rojo";
 	public static final String COLOR_VERDE					= "Verde";
