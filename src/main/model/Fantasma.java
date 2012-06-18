@@ -17,6 +17,7 @@ public class Fantasma{
 	private String id;
 	private String sentido;
 	private String siguienteCelda;
+	private String celdaAnterior;
 
 	public Fantasma(String color, Celda inicial, Comportamiento comportamiento, String id){
 		this.comportamiento = comportamiento;
@@ -105,6 +106,7 @@ public class Fantasma{
 	}
 
 	public void setCeldaActual(Celda celdaActual) {
+		this.celdaAnterior = this.celdaActual.getId();
 		this.celdaActual = celdaActual;
 	}
 
@@ -217,21 +219,33 @@ public class Fantasma{
 		ArrayList<String> lista = new ArrayList<String>();
 		String celdaArriba = this.celdaActual.getSiguienteCelda(Constantes.ARRIBA);
 		if (!(celdaArriba == null || celdaArriba.isEmpty())){
-			lista.add(Constantes.ARRIBA);
+			if (!(this.celdaActual.esBifurcacion() && celdaArriba.equals(this.celdaAnterior))){
+				lista.add(Constantes.ARRIBA);
+			}
 		}
 		String celdaAbajo = this.celdaActual.getSiguienteCelda(Constantes.ABAJO);
 		if (!(celdaAbajo == null || celdaAbajo.isEmpty())){
-			lista.add(Constantes.ABAJO);
+			if (!(this.celdaActual.esBifurcacion() && celdaAbajo.equals(this.celdaAnterior))){
+				lista.add(Constantes.ABAJO);
+			}
 		}
 		String celdaDerecha = this.celdaActual.getSiguienteCelda(Constantes.DERECHA);
 		if (!(celdaDerecha == null || celdaDerecha.isEmpty())){
-			lista.add(Constantes.DERECHA);
+			if (!(this.celdaActual.esBifurcacion() && celdaDerecha.equals(this.celdaAnterior))){
+				lista.add(Constantes.DERECHA);
+			}
 		}
 		String celdaIzquierda = this.celdaActual.getSiguienteCelda(Constantes.IZQUIERDA);
 		if (!(celdaIzquierda == null || celdaIzquierda.isEmpty())){
-			lista.add(Constantes.IZQUIERDA);
+			if (!(this.celdaActual.esBifurcacion() && celdaIzquierda.equals(this.celdaAnterior))){
+				lista.add(Constantes.IZQUIERDA);
+			}
 		}
 		return lista;
+	}
+	
+	public String getCeldaAnterior(){
+		return this.celdaAnterior;
 	}
 
 }
