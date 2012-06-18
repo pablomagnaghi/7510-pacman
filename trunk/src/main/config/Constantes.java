@@ -2,16 +2,16 @@ package main.config;
 
 public abstract class Constantes {
 
-//	public static final String ARCHIVO_LABERINTO 			= "./././res/Laberinto.xml";
-//	public static final String ARCHIVO_LABERINTO 			= "./././res/xml-escenarioDePrueba";
-//	public static final String ARCHIVO_LABERINTO 			= "./././res/pruebaBasica.xml";
-//	public static final String ARCHIVO_LABERINTO 			= "./././res/ejemploCatedra.xml";
-	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario2.xml";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/escenariosxml/Laberinto.xml";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/escenariosxml/xml-escenarioDePrueba";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/escenariosxml/pruebaBasica.xml";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/escenariosxml/ejemploCatedra.xml";
+	public static final String ARCHIVO_LABERINTO 			= "./././res/escenariosxml/escenario2.xml";
 	public static final String ARCHIVO_LABERINTO_SALIDA		= "./././res/LaberintoTick";
 	public static final String ARCHIVO_PERSONAJES_SALIDA	= "./././res/PersonajesTick";
 	
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
-	public static final String ARCHIVO_PACMAN				= "./././res/Ordenes";
+	public static final String ARCHIVO_PACMAN				= "./././res/ordenes/Ordenes";
 	public static final String DERECHA						= "derecha";
 	public static final String ABAJO						= "abajo";
 	public static final String ARRIBA						= "arriba";
