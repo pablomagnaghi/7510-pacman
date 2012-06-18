@@ -25,7 +25,6 @@ public class Fantasma{
 		this.setColor(color);
 		this.celdaActual = inicial;
 		this.id =(id);
-		this.sentido = Constantes.IZQUIERDA;
 	}
 
 	public Fantasma(){
@@ -210,9 +209,8 @@ public class Fantasma{
 	public String getDireccionAleatoria() {
 		ArrayList<String> direccionesPosibles = listaDeDireccionesPosibles();
 		Integer length = direccionesPosibles.size();
-		Double randomNumber = Math.random();
-		Integer subIndex = randomNumber.intValue() % length;
-		return direccionesPosibles.get(subIndex);
+		Double randomNumber = Math.random() * length;
+		return direccionesPosibles.get(randomNumber.intValue());
 	}
 
 	private ArrayList<String> listaDeDireccionesPosibles() {

@@ -84,9 +84,11 @@ public class ManejadorJuego {
 		ManejadorTurnos.getInstance().setLaberinto(laberinto);
 		ManejadorReglas.getInstance().setLaberinto(laberinto);
 		while (!finished){
-			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
+			System.out.println(ManejadorTurnos.getInstance().getTickNumber());
+//			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
 			ManejadorReglas.getInstance().chequearActoresMuertos();
-			finished = ManejadorTurnos.getInstance().esFinDeJuego();
+//			finished = ManejadorTurnos.getInstance().esFinDeJuego();
+			finished = Boolean.FALSE;
 			if (!finished){
 				finished = ManejadorReglas.getInstance().esFinJuego();
 				if (finished){
@@ -108,7 +110,8 @@ public class ManejadorJuego {
 			}else {
 				System.out.println("Fin, no hay movimientos del pacman");
 			}
-			this.laberinto.imprimirActoresAXml();
+			this.laberinto.imprimirActoresAXml(ManejadorTurnos.getInstance().getTickNumber()-1);
+			this.laberinto.imprimirLaberintoAXml(ManejadorTurnos.getInstance().getTickNumber()-1);
 		}
 	}
 	

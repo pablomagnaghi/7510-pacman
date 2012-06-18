@@ -52,7 +52,6 @@ public class ManejadorReglas implements Observer{
 	public void chequearTiempos(){
 		if (this.cronometroPresaContando){
 			if (cantTicks < tiempoPresa){
-				System.out.println("Sumando tiempoPresa");
 				cantTicks++;
 			} else {
 				this.cronometroPresaContando = Boolean.FALSE;
