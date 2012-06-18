@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import main.config.ConfiguracionPrincipal;
+import main.model.Celda;
 import main.model.Fantasma;
 import main.model.Laberinto;
 import main.model.Pacman;
@@ -61,6 +62,8 @@ public class ManejadorReglas implements Observer{
 					Fantasma fantasma = it.next();
 					if (fantasma.estaMuerto()){
 						fantasma.revivir();
+						Celda celda = this.laberinto.getCelda(this.laberinto.getPosicionInicioFantasma());
+						fantasma.setCeldaActual(celda);
 					} else {
 						fantasma.convertirEnCazador();
 					}

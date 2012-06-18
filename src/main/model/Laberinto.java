@@ -200,6 +200,10 @@ public class Laberinto {
 		Celda celda = this.getCelda(getPosicionInicioFantasma());
 		Integer i = 0;
 		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance(), i.toString()));
+		i++;
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda, ComportamientoZonzo.getInstance(), i.toString()));
+		i++;
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda, ComportamientoZonzo.getInstance(), i.toString()));
 		Pacman.getInstance().getCeldaActual().visitarPorPacman();
 	}
 
