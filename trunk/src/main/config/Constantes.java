@@ -3,8 +3,9 @@ package main.config;
 public abstract class Constantes {
 
 //	public static final String ARCHIVO_LABERINTO 			= "./././res/Laberinto.xml";
-	public static final String ARCHIVO_LABERINTO 			= "./././res/xml-escenarioDePrueba";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/xml-escenarioDePrueba";
 //	public static final String ARCHIVO_LABERINTO 			= "./././res/pruebaBasica.xml";
+	public static final String ARCHIVO_LABERINTO 			= "./././res/ejemploCatedra.xml";
 	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
 	public static final String ARCHIVO_PACMAN				= "./././res/Ordenes";
 	public static final String DERECHA						= "derecha";
@@ -13,7 +14,7 @@ public abstract class Constantes {
 	public static final String IZQUIERDA					= "izquierda";
 	public static final String BOLITA						= "bolita";
 	public static final String BOLON						= "bolon";
-	public static final Integer PACMAN_VELOCIDAD			= 2;
+	public static final Integer PACMAN_VELOCIDAD			= 1;
 	public static final Integer FANTASMA_VELOCIDAD_NORMAL	= 3;
 	public static final Integer FANTASMA_VELOCIDAD_MOLESTO	= 2;
 	public static final Integer FANTASMA_VELOCIDAD_FURIOSO	= 1;

@@ -6,7 +6,6 @@ public class BolitaNormal extends Bolita{
 
 	@Override
 	public void comer() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
