@@ -1,0 +1,3 @@
+<juego>
+	<pacman direccion="derecha"/>
+</juego>
