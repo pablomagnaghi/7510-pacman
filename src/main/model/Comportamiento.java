@@ -24,6 +24,9 @@ public abstract class Comportamiento {
 				direccion = fantasma.getDireccionAleatoria();
 			} else {
 				direccion = fantasma.getSentido();
+				if (direccion == null){
+					direccion = fantasma.getDireccionAleatoria();
+				}
 			}
 		}
 		fantasma.setSiguienteCelda(fantasma.getCeldaActual().getSiguienteCelda(direccion));

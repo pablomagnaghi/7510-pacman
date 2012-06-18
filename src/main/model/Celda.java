@@ -45,45 +45,17 @@ public class Celda {
 		return siguienteCelda;
 	}
 
-//	public String getCeldaIzquierda() {
-//		if (this.idCeldaIzquierda == null){
-//			return "";
-//		}
-//		return idCeldaIzquierda;
-//	}
-//
 	public void setCeldaIzquierda(String celdaIzquierda) {
 		this.idCeldaIzquierda = celdaIzquierda;
 	}
-//
-//	public String getCeldaDerecha() {
-//		if (this.idCeldaDerecha == null){
-//			return "";
-//		}
-//		return idCeldaDerecha;
-//	}
-//	
+
 	public void setCeldaDerecha(String celdaDerecha) {
 		this.idCeldaDerecha = celdaDerecha;
 	}
-//
-//	public String getCeldaArriba() {
-//		if (this.idCeldaArriba == null){
-//			return "";
-//		}
-//		return idCeldaArriba;
-//	}
-//
+
 	public void setCeldaArriba(String celdaArriba) {
 		this.idCeldaArriba = celdaArriba;
 	}
-//
-//	public String getCeldaAbajo() {
-//		if (this.idCeldaAbajo == null){
-//			return "";
-//		}
-//		return idCeldaAbajo;
-//	}
 
 	public void setCeldaAbajo(String celdaAbajo) {
 		this.idCeldaAbajo = celdaAbajo;

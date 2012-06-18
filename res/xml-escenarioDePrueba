@@ -98,7 +98,7 @@
 <nodo id="0808" fila="08" columna="08" contiene="" izquierda="" derecha="" arriba="" abajo=""/>
 <nodo id="0809" fila="08" columna="09" contiene="bolita" izquierda="" derecha="" arriba="0709" abajo="0909"/>
 <nodo id="0810" fila="08" columna="10" contiene="" izquierda="" derecha="" arriba="" abajo=""/>
-<nodo id="0800" fila="09" columna="00" contiene="" izquierda="0910" derecha="0901" arriba="" abajo=""/>
+<nodo id="0900" fila="09" columna="00" contiene="" izquierda="0910" derecha="0901" arriba="" abajo=""/>
 <nodo id="0901" fila="09" columna="01" contiene="bolita" izquierda="0900" derecha="0902" arriba="0801" abajo=""/>
 <nodo id="0902" fila="09" columna="02" contiene="bolita" izquierda="0907" derecha="0903" arriba="" abajo=""/>
 <nodo id="0903" fila="09" columna="03" contiene="bolita" izquierda="0902" derecha="0904" arriba="0803" abajo=""/>

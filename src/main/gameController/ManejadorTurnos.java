@@ -55,7 +55,7 @@ public class ManejadorTurnos {
 	}
 
 	public void ejecutarTurnoPacman(){
-		if (this.tick % Constantes.PACMAN_VELOCIDAD == 0){
+		if (this.getTickNumber() % Constantes.PACMAN_VELOCIDAD == 0){
 			System.out.println("Moviendo pacman");
 			moverPacman();
 		}
@@ -65,23 +65,23 @@ public class ManejadorTurnos {
 		Iterator<Fantasma> it = this.laberinto.getFantasmas().iterator();
 		while (it.hasNext()){
 			Fantasma fantasma = it.next();
-			if (((this.tick % Constantes.FANTASMA_VELOCIDAD_FURIOSO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_FURIOSO))
+			if (((this.getTickNumber() % Constantes.FANTASMA_VELOCIDAD_FURIOSO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_FURIOSO))
 					||
-					((this.tick % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
+					((this.getTickNumber() % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
 					||
-					((this.tick % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
+					((this.getTickNumber() % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
 				System.out.println("Moviendo fantasma");
 				fantasma.mover();
 				Celda celda = this.laberinto.getCelda(fantasma.getSiguienteCelda());
 				fantasma.setCeldaActual(celda);
 			}
 
-			if (this.tick % Constantes.FANTASMA_TICKS_ENOJO == 0 && !(fantasma.getEstado().equals(EstadoPresa.getInstance()))){
+			if (this.getTickNumber() % Constantes.FANTASMA_TICKS_ENOJO == 0 && !(fantasma.getEstado().equals(EstadoPresa.getInstance()))){
 				System.out.println("AumentandoIra");
 				fantasma.incrementarIra();
 			}
 		}
-		this.tick++;
+		this.tick = this.getTickNumber() + 1;
 	}
 
 	private void moverPacman() {
@@ -114,6 +114,10 @@ public class ManejadorTurnos {
 
 	public Boolean esFinDeJuego() {
 		return !hayMas;
+	}
+
+	public Integer getTickNumber() {
+		return tick;
 	}
 
 }

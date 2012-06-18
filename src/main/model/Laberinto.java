@@ -1,5 +1,8 @@
 package main.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.config.Constantes;
+import main.states.ComportamientoBuscador;
 import main.states.ComportamientoZonzo;
 
 public class Laberinto {
@@ -33,30 +37,39 @@ public class Laberinto {
 		return mapa;
 	}
 
-	public void imprimirLaberintoAXml(){
-		System.out.println("<laberinto ancho=\"" + this.cantCol + "\" alto=\"" + this.cantCol +"\" nodoAncho=\"30\" " +
-				"nodoAlto=\"30\" inicioPacman=\""+getPosicionInicioPacman()+"\" inicioFantasmas=\""+getPosicionInicioFantasma()+"\">");
+	public void imprimirLaberintoAXml(Integer nroTick){
+		StringBuffer sb = new StringBuffer();
+		sb.append("<laberinto ancho=\"" + this.cantCol + "\" alto=\"" + this.cantCol +"\" nodoAncho=\"30\" " +
+				"nodoAlto=\"30\" inicioPacman=\""+getPosicionInicioPacman()+"\" inicioFantasmas=\""+getPosicionInicioFantasma()+"\">\n");
 		Integer fila;
 		for(fila = 0; fila < this.cantFil; fila++){
 			Integer columna;
 			for(columna = 0; columna < this.cantCol; columna++){
 				Celda celda = this.mapa.get(construirId(fila, columna));
 				if (celda == null){
-					System.out.println("\t<nodo id=\""+construirId(fila, columna)+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" " +
+					sb.append("\t<nodo id=\""+construirId(fila, columna)+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" " +
 							"contiene=\"\" " +
-							"izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\"/>");
+							"izquierda=\"\" derecha=\"\" arriba=\"\" abajo=\"\"/>\n");
 				} else {
 					String content = celda.getContent();
 					String izquierda = celda.getSiguienteCelda(Constantes.IZQUIERDA);
 					String derecha = celda.getSiguienteCelda(Constantes.DERECHA);
 					String arriba = celda.getSiguienteCelda(Constantes.ARRIBA);
 					String abajo = celda.getSiguienteCelda(Constantes.ABAJO);
-					System.out.println("\t<nodo id=\""+celda.getId()+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" contiene=\""+content+"\" " +
-							"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>");
+					sb.append("\t<nodo id=\""+celda.getId()+"\" fila=\""+formatearNro(fila)+"\" columna=\""+formatearNro(columna)+"\" contiene=\""+content+"\" " +
+							"izquierda=\"" +izquierda+ "\" derecha=\""+derecha+"\" arriba=\""+arriba+"\" abajo=\""+abajo+"\"/>\n");
 				}
 			}
 		}
-		System.out.println("</laberinto>");
+		sb.append("</laberinto>");
+		try {
+			FileWriter fw = new FileWriter(new File(Constantes.ARCHIVO_LABERINTO_SALIDA + nroTick.toString() + ".xml"));
+			fw.write(sb.toString());
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	private String construirId(Integer fila, Integer columna) {
@@ -185,25 +198,33 @@ public class Laberinto {
 		return this.mapa.get(id);
 	}
 
-	public void imprimirActoresAXml() {
-		System.out.println("<juego posicionPacman=\"" + Pacman.getInstance().getCeldaActual().getId() +"\" fila=\""+Pacman.getInstance().getCeldaActual().getFila() + "\" " +
-				" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">");
+	public void imprimirActoresAXml(Integer nroTick) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<juego posicionPacman=\"" + Pacman.getInstance().getCeldaActual().getId() +"\" fila=\""+Pacman.getInstance().getCeldaActual().getFila() + "\" " +
+				" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">\n");
 		for (Fantasma f : this.fantasmas) {
-			System.out.println("<fantasma id=\""+f.getId()+"\" nodo=\""+f.getCeldaActual().getId()+"\" " + 
-					"fila=\""+f.getCeldaActual().getFila()+"\" columna=\""+f.getCeldaActual().getColumna()+"\" sentido=\""+f.getSentido()+"\" personalidad=\"" + f.getPersonalidad() + "\" estado=\""+f.getEstado().getNombre()+"\"/>");
+			sb.append("<fantasma id=\""+f.getId()+"\" nodo=\""+f.getCeldaActual().getId()+"\" " + 
+					"fila=\""+f.getCeldaActual().getFila()+"\" columna=\""+f.getCeldaActual().getColumna()+"\" sentido=\""+f.getSentido()+"\" personalidad=\"" + f.getPersonalidad() + "\" estado=\""+f.getEstado().getNombre()+"\"/>\n");
 		}
-		System.out.println("</juego>");
+		sb.append("</juego>");
+		try {
+			FileWriter fw = new FileWriter(new File(Constantes.ARCHIVO_PERSONAJES_SALIDA + nroTick.toString() + ".xml"));
+			fw.write(sb.toString());
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void inicializarActores() {
 		Pacman.getInstance().setCeldaActual(this.getCelda(getPosicionInicioPacman()));
 		Celda celda = this.getCelda(getPosicionInicioFantasma());
 		Integer i = 0;
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoZonzo.getInstance(), i.toString()));
-		i++;
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda, ComportamientoZonzo.getInstance(), i.toString()));
-		i++;
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda, ComportamientoZonzo.getInstance(), i.toString()));
+		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoBuscador.getInstance(), i.toString()));
+//		i++;
+//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda, ComportamientoZonzo.getInstance(), i.toString()));
+//		i++;
+//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda, ComportamientoZonzo.getInstance(), i.toString()));
 		Pacman.getInstance().getCeldaActual().visitarPorPacman();
 	}
 
