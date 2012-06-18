@@ -94,6 +94,7 @@ public class ManejadorJuego {
 				} else {
 					ManejadorTurnos.getInstance().ejecutarTurnoFantasma();
 					ManejadorReglas.getInstance().chequearActoresMuertos();
+					ManejadorReglas.getInstance().chequearTiempos();
 					finished = ManejadorReglas.getInstance().esFinJuego();
 					if (finished){
 						System.out.println("Fin, pacman eliminado");

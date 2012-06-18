@@ -219,19 +219,19 @@ public class Fantasma{
 		ArrayList<String> lista = new ArrayList<String>();
 		String celdaArriba = this.celdaActual.getSiguienteCelda(Constantes.ARRIBA);
 		if (!(celdaArriba == null || celdaArriba.isEmpty())){
-			lista.add(celdaArriba);
+			lista.add(Constantes.ARRIBA);
 		}
 		String celdaAbajo = this.celdaActual.getSiguienteCelda(Constantes.ABAJO);
 		if (!(celdaAbajo == null || celdaAbajo.isEmpty())){
-			lista.add(celdaAbajo);
+			lista.add(Constantes.ABAJO);
 		}
 		String celdaDerecha = this.celdaActual.getSiguienteCelda(Constantes.DERECHA);
 		if (!(celdaDerecha == null || celdaDerecha.isEmpty())){
-			lista.add(celdaDerecha);
+			lista.add(Constantes.DERECHA);
 		}
 		String celdaIzquierda = this.celdaActual.getSiguienteCelda(Constantes.IZQUIERDA);
 		if (!(celdaIzquierda == null || celdaIzquierda.isEmpty())){
-			lista.add(celdaIzquierda);
+			lista.add(Constantes.IZQUIERDA);
 		}
 		return lista;
 	}

@@ -13,6 +13,7 @@ import main.model.Celda;
 import main.model.Fantasma;
 import main.model.Laberinto;
 import main.model.Pacman;
+import main.states.EstadoPresa;
 
 public class ManejadorTurnos {
 
@@ -73,10 +74,9 @@ public class ManejadorTurnos {
 				fantasma.mover();
 				Celda celda = this.laberinto.getCelda(fantasma.getSiguienteCelda());
 				fantasma.setCeldaActual(celda);
-				fantasma.setSentido(this.sentido);
 			}
 
-			if (this.tick % Constantes.FANTASMA_TICKS_ENOJO == 0){
+			if (this.tick % Constantes.FANTASMA_TICKS_ENOJO == 0 && !(fantasma.getEstado().equals(EstadoPresa.getInstance()))){
 				System.out.println("AumentandoIra");
 				fantasma.incrementarIra();
 			}
