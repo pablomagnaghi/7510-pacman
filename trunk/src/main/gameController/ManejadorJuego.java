@@ -85,19 +85,18 @@ public class ManejadorJuego {
 		ManejadorReglas.getInstance().setLaberinto(laberinto);
 		while (!finished){
 			System.out.println(ManejadorTurnos.getInstance().getTickNumber());
-//			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
+			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
 			ManejadorReglas.getInstance().chequearActoresMuertos();
-//			finished = ManejadorTurnos.getInstance().esFinDeJuego();
-			finished = Boolean.FALSE;
+			finished = ManejadorTurnos.getInstance().hayMasMovimientos();
 			if (!finished){
-				finished = ManejadorReglas.getInstance().esFinJuego();
+				finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
 				if (finished){
 					System.out.println("Fin, pacman eliminado");
 				} else {
 					ManejadorTurnos.getInstance().ejecutarTurnoFantasma();
 					ManejadorReglas.getInstance().chequearActoresMuertos();
 					ManejadorReglas.getInstance().chequearTiempos();
-					finished = ManejadorReglas.getInstance().esFinJuego();
+					finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
 					if (finished){
 						System.out.println("Fin, pacman eliminado");
 					} else {

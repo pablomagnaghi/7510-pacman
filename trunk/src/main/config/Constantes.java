@@ -3,9 +3,10 @@ package main.config;
 public abstract class Constantes {
 
 //	public static final String ARCHIVO_LABERINTO 			= "./././res/Laberinto.xml";
-	public static final String ARCHIVO_LABERINTO 			= "./././res/xml-escenarioDePrueba";
+//	public static final String ARCHIVO_LABERINTO 			= "./././res/xml-escenarioDePrueba";
 //	public static final String ARCHIVO_LABERINTO 			= "./././res/pruebaBasica.xml";
 //	public static final String ARCHIVO_LABERINTO 			= "./././res/ejemploCatedra.xml";
+	public static final String ARCHIVO_LABERINTO 			= "./././res/escenario2.xml";
 	public static final String ARCHIVO_LABERINTO_SALIDA		= "./././res/LaberintoTick";
 	public static final String ARCHIVO_PERSONAJES_SALIDA	= "./././res/PersonajesTick";
 	

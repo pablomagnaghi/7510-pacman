@@ -220,7 +220,7 @@ public class Laberinto {
 		Pacman.getInstance().setCeldaActual(this.getCelda(getPosicionInicioPacman()));
 		Celda celda = this.getCelda(getPosicionInicioFantasma());
 		Integer i = 0;
-		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoBuscador.getInstance(), i.toString()));
+//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoBuscador.getInstance(), i.toString()));
 //		i++;
 //		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda, ComportamientoZonzo.getInstance(), i.toString()));
 //		i++;

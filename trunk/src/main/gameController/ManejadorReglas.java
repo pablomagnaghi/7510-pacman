@@ -79,7 +79,7 @@ public class ManejadorReglas implements Observer{
 		return instance;
 	}
 
-	public Boolean esFinJuego() {
+	public Boolean estaElPacmanEliminado() {
 		return finJuego;
 	}
 

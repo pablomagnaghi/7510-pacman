@@ -112,7 +112,7 @@ public class ManejadorTurnos {
 		this.laberinto = laberinto;
 	}
 
-	public Boolean esFinDeJuego() {
+	public Boolean hayMasMovimientos() {
 		return !hayMas;
 	}
 
