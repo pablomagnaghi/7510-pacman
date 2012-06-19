@@ -1,8 +1,11 @@
-TiempoMuerto = 10
-TiempoPresa = 25
-ArchivoLaberinto = '/home/luisp/workspace/tecnicas-g5/res/escenariosxml/escenario2.xml'
-DirSalida = '/home/luisp/workspace/tecnicas-g5/'
-DirOrdenes = '/home/luisp/workspace/tecnicas-g5/res/ordenes/'
+Tiempomuerto = 10
+Tiempopresa = 25
+ArchivoLaberinto = '/home/luis/desarrollo/java/tecnicas-g5/res/escenariosxml/escenario2.xml'
+DirSalida = '/home/luis/desarrollo/java/tecnicas-g5/'
+DirOrdenes = '/home/luis/desarrollo/java/tecnicas-g5/res/ordenes/'
+distanciaBuscador = 3
+distanciaPerezoso = 2
+distanciaZonzo = 1
 fantasma buscador
 fantasma zonzo
 fantasma perezoso
