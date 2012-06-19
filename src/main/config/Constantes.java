@@ -56,13 +56,12 @@ public abstract class Constantes {
 	public static final String PEREZOSO 					= "perezoso";
 	public static final String BUSCADOR 					= "buscador";
 	public static final String BUSCADOR_T 					= "buscadorT";
-//	public static final Integer DISTANCIA_ZONZO 			= 1;
-//	public static final Integer DISTANCIA_PEREZOSO 			= 2;
-//	public static final Integer DISTANCIA_BUSCADOR 			= 3;
 	public static final String ARCHIVO_LABERINTO			= "ArchivoLaberinto";
 	public static final String DIR_SALIDA					= "DirSalida";
 	public static final String DIR_ORDENES					= "DirOrdenes";
 	public static final Integer ACCION_ESCAPAR 				= 0;
 	public static final Integer ACCION_ACERCAR 				= 1;
+	public static final String ARCHIVO_ENTRADA_PACMAN		= "pacmanTick";
+	public static final Integer SEGUNDOS_PARA_INTENTAR		= 15;
 	
 }

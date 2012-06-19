@@ -24,12 +24,11 @@ public class ManejadorTurnos {
 	private Laberinto laberinto;
 	private Integer tick = 1;
 	private Integer turnoPacman = 1;
-	private Boolean hayMas = Boolean.TRUE;
 
 	public String leerTurnoPacman(String archivoPacman){
 		String direccion = null;
 		try {
-			FileReader fr = new FileReader(new File(archivoPacman + turnoPacman + ".txt"));
+			FileReader fr = new FileReader(new File(archivoPacman + turnoPacman + ".xml"));
 			this.turnoPacman++;
 			String line;
 			BufferedReader br = new BufferedReader(fr);
@@ -39,7 +38,6 @@ public class ManejadorTurnos {
 
 			fr.close();
 		} catch (IOException e) {
-			this.hayMas = Boolean.FALSE;
 		}
 		return direccion;
 	}
@@ -86,7 +84,18 @@ public class ManejadorTurnos {
 	}
 
 	private void moverPacman() {
-		String direccionPacman = leerTurnoPacman(ConfiguracionPrincipal.getInstance().getDirectorioOrdenes() + "Ordenes");
+		String direccionPacman = null;
+		while (direccionPacman == null){
+			direccionPacman = leerTurnoPacman(ConfiguracionPrincipal.getInstance().getDirectorioOrdenes() + Constantes.ARCHIVO_ENTRADA_PACMAN);
+			if (direccionPacman == null){
+				System.out.println("Esperando nueva orden...");
+				try {
+					Thread.sleep(Constantes.SEGUNDOS_PARA_INTENTAR * 1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		Boolean resultadoDeMovimiento;
 		resultadoDeMovimiento = Pacman.getInstance().mover(direccionPacman); 
 		if (resultadoDeMovimiento){
@@ -111,10 +120,6 @@ public class ManejadorTurnos {
 
 	public void setLaberinto(Laberinto laberinto) {
 		this.laberinto = laberinto;
-	}
-
-	public Boolean hayMasMovimientos() {
-		return !hayMas;
 	}
 
 	public Integer getTickNumber() {
