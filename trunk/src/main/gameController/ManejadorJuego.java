@@ -12,17 +12,17 @@ import main.config.ConfiguracionPrincipal;
 import main.model.Laberinto;
 
 public class ManejadorJuego {
-	
+
 	private Laberinto laberinto;
-	
+
 	private static final Pattern ancho = Pattern.compile("\\sancho=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final Pattern alto = Pattern.compile("\\salto=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final Pattern nodoAncho = Pattern.compile("\\snodoAncho=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final Pattern nodoAlto = Pattern.compile("\\snodoAlto=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final Pattern inicioPacman = Pattern.compile("\\sinicioPacman=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final Pattern inicioFantasmas = Pattern.compile("\\sinicioFantasmas=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	
-	
+
+
 	public ManejadorJuego(String configuracion){
 		ConfiguracionPrincipal.getInstance().leerParametros(configuracion);
 		String input = ConfiguracionPrincipal.getInstance().getArchivoLaberinto();
@@ -40,9 +40,9 @@ public class ManejadorJuego {
 			Integer cantZonzos = ConfiguracionPrincipal.getInstance().getCantFantasmaZonzo();
 			Integer cantBuscadores = ConfiguracionPrincipal.getInstance().getCantFantasmaBuscador();
 			Integer cantPerezosos = ConfiguracionPrincipal.getInstance().getCantFantasmaPerezoso();
-			
+
 			this.laberinto.inicializarActores(cantZonzos, cantBuscadores, cantPerezosos);
-		fr.close();
+			fr.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -74,18 +74,18 @@ public class ManejadorJuego {
 		if (matcher.find()){
 			this.laberinto.setInicioPacman(matcher.group(1));
 		}
-		
+
 		matcher = inicioFantasmas.matcher(line);
 		if (matcher.find()){
 			this.laberinto.setInicioFantasma(matcher.group(1));
 		}
-		
+
 	}
 
 	public Laberinto getLaberinto() {
 		return laberinto;
 	}
-	
+
 	public void correrJuego(){
 		Boolean finished = false;
 		ManejadorTurnos.getInstance().setLaberinto(laberinto);
@@ -96,31 +96,26 @@ public class ManejadorJuego {
 			System.out.println(ManejadorTurnos.getInstance().getTickNumber());
 			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
 			ManejadorReglas.getInstance().chequearActoresMuertos();
-			finished = ManejadorTurnos.getInstance().hayMasMovimientos();
-			if (!finished){
+			finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
+			if (finished){
+				System.out.println("Fin, pacman eliminado");
+			} else {
+				ManejadorTurnos.getInstance().ejecutarTurnoFantasma();
+				ManejadorReglas.getInstance().chequearActoresMuertos();
+				ManejadorReglas.getInstance().chequearTiempos();
 				finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
 				if (finished){
 					System.out.println("Fin, pacman eliminado");
 				} else {
-					ManejadorTurnos.getInstance().ejecutarTurnoFantasma();
-					ManejadorReglas.getInstance().chequearActoresMuertos();
-					ManejadorReglas.getInstance().chequearTiempos();
-					finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
+					finished = !(this.laberinto.hayMasBolitas());
 					if (finished){
-						System.out.println("Fin, pacman eliminado");
-					} else {
-						finished = !(this.laberinto.hayMasBolitas());
-						if (finished){
-							System.out.println("Fin, todas las pelotas comidas");
-						}
+						System.out.println("Fin, todas las pelotas comidas");
 					}
 				}
-			}else {
-				System.out.println("Fin, no hay movimientos del pacman");
 			}
 			this.laberinto.imprimirActoresAXml(salidaActores, ManejadorTurnos.getInstance().getTickNumber()-1);
 			this.laberinto.imprimirLaberintoAXml(salidaLaberinto, ManejadorTurnos.getInstance().getTickNumber()-1);
 		}
 	}
-	
+
 }
