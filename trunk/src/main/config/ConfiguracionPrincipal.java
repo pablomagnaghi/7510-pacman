@@ -15,17 +15,19 @@ public class ConfiguracionPrincipal {
 	private Integer cantFantasmaPerezoso = 0;
 	private Integer cantFantasmaBuscador = 0;
 	private Integer cantFantasmaZonzo = 0;
+	private Integer distanciaPerezoso = 2;
+	private Integer distanciaBuscador = 3;
+	private Integer distanciaZonzo = 4;
+	
 	private String archivoLaberinto;
 	private String directorioSalida;
 	private String directorioOrdenes;
 	
-	private static Pattern tiempoMuertoPattern = Pattern.compile("tiempomuerto\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	private static Pattern tiempoPresaPattern = Pattern.compile("tiempopresa\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	private static Pattern tiemposPattern = Pattern.compile("Tiempo(Muerto|Presa)\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static Pattern fantasmasPattern = Pattern.compile("fantasma\\s*(zonzo|perezoso|buscador)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	private static Pattern laberintoPattern = Pattern.compile("ArchivoLaberinto\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	private static Pattern salidaPattern = Pattern.compile("DirSalida\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	private static Pattern ordenesPattern = Pattern.compile("DirOrdenes\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	
+	private static Pattern directoriosPattern = Pattern.compile("(ArchivoLaberinto|DirSalida|DirOrdenes)\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	private static Pattern distanciaPattern = Pattern.compile("distancia\\s*(buscador|perezoso|zonzo)\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+
 	private ConfiguracionPrincipal(){
 		
 	}
@@ -37,40 +39,13 @@ public class ConfiguracionPrincipal {
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			while ((line = br.readLine()) != null){
-				Matcher matcher = tiempoMuertoPattern.matcher(line);
-				if (matcher.find()){
-					this.setTiempoMuerto(new Integer(matcher.group(1)));
-				} else {
-					matcher = tiempoPresaPattern.matcher(line);
-					if (matcher.find()){
-						this.setTiempoPresa(new Integer(matcher.group(1)));
-					}
-					else {
-						matcher = fantasmasPattern.matcher(line);
-						if (matcher.find()){
-							if (Constantes.ZONZO.equals(matcher.group(1))){
-								cantFantasmaZonzo++;
-							} else if(Constantes.PEREZOSO.equals(matcher.group(1))){
-								cantFantasmaPerezoso++;
-							} else if(Constantes.BUSCADOR.equals(matcher.group(1))){
-								cantFantasmaBuscador++;
-							}
-						} else {
-							matcher = laberintoPattern.matcher(line);
-							if (matcher.find()){
-								this.archivoLaberinto = matcher.group(1);
-							}
-							else {
-								matcher = salidaPattern.matcher(line);
-								if (matcher.find()){
-									this.directorioSalida = matcher.group(1);
-								} else {
-									matcher = ordenesPattern.matcher(line);
-									if (matcher.find()){
-										this.directorioOrdenes = matcher.group(1);
-									}
-								}
-							}
+				Boolean lineParsed = matchTiempos(line);
+				if (!lineParsed){
+					lineParsed = matchFantasmas(line);
+					if (!lineParsed){
+						lineParsed = matchDistancias(line);
+						if (!lineParsed){
+							lineParsed = matchArchivos(line);
 						}
 					}
 				}
@@ -78,6 +53,74 @@ public class ConfiguracionPrincipal {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private Boolean matchTiempos(String line){
+		Boolean result = Boolean.FALSE;
+		if (this.tiempoMuerto != null && this.tiempoPresa != null){
+			return result;
+		}
+		Matcher matcher = tiemposPattern.matcher(line);
+		if (matcher.find()){
+			if (Constantes.PRESA.equals(matcher.group(1))){
+				this.setTiempoPresa(new Integer(matcher.group(2)));
+			} else {
+				this.setTiempoMuerto(new Integer(matcher.group(2)));
+			}
+			result = Boolean.TRUE;
+		}
+		return result;
+	}
+	
+	private Boolean matchFantasmas(String line){
+		Boolean result = Boolean.FALSE;
+		Matcher matcher = fantasmasPattern.matcher(line);
+		if (matcher.find()){
+			if (Constantes.ZONZO.equals(matcher.group(1))){
+				cantFantasmaZonzo++;
+			} else if (Constantes.PEREZOSO.equals(matcher.group(1))){
+				cantFantasmaPerezoso++;
+			} else {
+				cantFantasmaBuscador++;
+			}
+			result = Boolean.TRUE;
+		}
+		return result;
+	}
+	
+	private Boolean matchDistancias(String line){
+		Boolean result = Boolean.FALSE;
+		Matcher matcher = distanciaPattern.matcher(line);
+		if (matcher.find()){
+			if (Constantes.ZONZO.equals(matcher.group(1))){
+				this.setDistanciaZonzo(new Integer(matcher.group(2)));
+			} else if (Constantes.PEREZOSO.equals(matcher.group(1))) {
+				this.setDistanciaPerezoso(new Integer(matcher.group(2)));
+			} else {
+				this.setDistanciaBuscador(new Integer(matcher.group(2)));
+			}
+			result = Boolean.TRUE;
+		}
+		return result;
+	}
+	
+	private Boolean matchArchivos(String line){
+		Boolean result = Boolean.FALSE;
+		Matcher matcher = directoriosPattern.matcher(line);
+		if (this.archivoLaberinto != null && this.directorioOrdenes != null && this.directorioSalida!=null){
+			return result;
+		}
+		if (matcher.find()){
+			if (Constantes.ARCHIVO_LABERINTO.equals(matcher.group(1))){
+				this.archivoLaberinto = matcher.group(2);
+			} else if (Constantes.DIR_ORDENES.equals(matcher.group(1))){
+				this.directorioOrdenes = matcher.group(2);
+			} else {
+				this.directorioSalida = matcher.group(2);
+			}
+			result = Boolean.TRUE;
+		}
+		return result;
 	}
 
 	public Integer getTiempoMuerto() {
@@ -125,6 +168,30 @@ public class ConfiguracionPrincipal {
 	
 	public String getDirectorioOrdenes() {
 		return directorioOrdenes;
+	}
+
+	public Integer getDistanciaPerezoso() {
+		return distanciaPerezoso;
+	}
+
+	private void setDistanciaPerezoso(Integer distanciaPerezoso) {
+		this.distanciaPerezoso = distanciaPerezoso;
+	}
+
+	public Integer getDistanciaBuscador() {
+		return distanciaBuscador;
+	}
+
+	private void setDistanciaBuscador(Integer distanciaBuscador) {
+		this.distanciaBuscador = distanciaBuscador;
+	}
+
+	public Integer getDistanciaZonzo() {
+		return distanciaZonzo;
+	}
+
+	private void setDistanciaZonzo(Integer distanciZonzo) {
+		this.distanciaZonzo = distanciZonzo;
 	}
 	
 }

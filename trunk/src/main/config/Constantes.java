@@ -33,7 +33,7 @@ public abstract class Constantes {
 	public static final String CONVERTIR_CAZADOR_A_CAZADOR 	= "Ya soy cazador";
 	public static final String AUMENTAR_IRA_CAZADOR 		= "Aumentando ira del cazador";
 	public static final String AUMENTAR_IRA_MAX_CAZADOR 	= "Cazador ha llegado a su maxima ira";
-	public static final String MUERTO 						= "Muerto";
+	public static final String MUERTO 						= "muerto";
 	public static final String MOVER_MUERTO 				= "Estoy muerto, no me puedo mover";
 	public static final String INCREMENTAR_IRA_MUERTO 		= "Estoy muerto, no puedo incrementar ira";
 	public static final String ELIMINAR_MUERTO 				= "Estoy muerto, no puedo volver a morir";
@@ -56,9 +56,12 @@ public abstract class Constantes {
 	public static final String PEREZOSO 					= "perezoso";
 	public static final String BUSCADOR 					= "buscador";
 	public static final String BUSCADOR_T 					= "buscadorT";
-	public static final Integer DISTANCIA_ZONZO 			= 1;
-	public static final Integer DISTANCIA_PEREZOSO 			= 2;
-	public static final Integer DISTANCIA_BUSCADOR 			= 3;
+//	public static final Integer DISTANCIA_ZONZO 			= 1;
+//	public static final Integer DISTANCIA_PEREZOSO 			= 2;
+//	public static final Integer DISTANCIA_BUSCADOR 			= 3;
+	public static final String ARCHIVO_LABERINTO			= "ArchivoLaberinto";
+	public static final String DIR_SALIDA					= "DirSalida";
+	public static final String DIR_ORDENES					= "DirOrdenes";
 	public static final Integer ACCION_ESCAPAR 				= 0;
 	public static final Integer ACCION_ACERCAR 				= 1;
 	

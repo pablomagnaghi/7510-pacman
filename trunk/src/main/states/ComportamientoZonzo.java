@@ -1,5 +1,6 @@
 package main.states;
 
+import main.config.ConfiguracionPrincipal;
 import main.config.Constantes;
 import main.model.Comportamiento;
 import main.model.Fantasma;
@@ -10,7 +11,7 @@ public class ComportamientoZonzo extends Comportamiento{
 
 	@Override
 	public void realizarMovimientoCazador(Fantasma fantasma) {
-		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ACERCAR);
+		super.realizarMovimiento(fantasma, ConfiguracionPrincipal.getInstance().getDistanciaZonzo(), Constantes.ACCION_ACERCAR);
 	}
 
 	public static ComportamientoZonzo getInstance() {
@@ -27,7 +28,7 @@ public class ComportamientoZonzo extends Comportamiento{
 
 	@Override
 	public void realizarMovimientoPresa(Fantasma fantasma) {
-		super.realizarMovimiento(fantasma, Constantes.DISTANCIA_PEREZOSO, Constantes.ACCION_ESCAPAR);
+		super.realizarMovimiento(fantasma, ConfiguracionPrincipal.getInstance().getDistanciaZonzo(), Constantes.ACCION_ESCAPAR);
 	}
 
 }
