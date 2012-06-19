@@ -24,6 +24,7 @@ public class ManejadorJuego {
 	
 	
 	public ManejadorJuego(String configuracion){
+		ConfiguracionPrincipal.getInstance().leerParametros(configuracion);
 		String input = ConfiguracionPrincipal.getInstance().getArchivoLaberinto();
 		FileReader fr;
 		BufferedReader br;

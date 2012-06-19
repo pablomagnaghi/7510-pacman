@@ -2,7 +2,6 @@ package main.config;
 
 public abstract class Constantes {
 
-	public static final String ARCHIVO_CONFIGURACION		= "./././res/ArchivoEntrada.txt";
 	public static final String DERECHA						= "derecha";
 	public static final String ABAJO						= "abajo";
 	public static final String ARRIBA						= "arriba";

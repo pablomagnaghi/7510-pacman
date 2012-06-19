@@ -27,7 +27,7 @@ public class ConfiguracionPrincipal {
 	private static Pattern ordenesPattern = Pattern.compile("DirOrdenes\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	
 	private ConfiguracionPrincipal(){
-		leerParametros(Constantes.ARCHIVO_CONFIGURACION);
+		
 	}
 	
 	public void leerParametros(String archivoEntrada){
