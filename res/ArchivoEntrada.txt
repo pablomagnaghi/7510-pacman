@@ -1,8 +1,8 @@
 TiempoMuerto = 10
 TiempoPresa = 25
-ArchivoLaberinto = './././res/escenariosxml/escenario2.xml'
-DirSalida = './././res/'
-DirOrdenes = './././res/ordenes/'
+ArchivoLaberinto = '/home/luisp/workspace/tecnicas-g5/res/escenariosxml/escenario2.xml'
+DirSalida = '/home/luisp/workspace/tecnicas-g5/res'
+DirOrdenes = '/home/luisp/workspace/tecnicas-g5/res/ordenes/'
 fantasma buscador
 fantasma zonzo
 fantasma perezoso
