@@ -93,7 +93,6 @@ public class ManejadorJuego {
 		String salidaActores = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "PersonajesTick";
 		String salidaLaberinto = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "LaberintoTick";
 		while (!finished){
-			System.out.println(ManejadorTurnos.getInstance().getTickNumber());
 			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
 			ManejadorReglas.getInstance().chequearActoresMuertos();
 			finished = ManejadorReglas.getInstance().estaElPacmanEliminado();
