@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import main.config.Constantes;
 import main.states.ComportamientoBuscador;
+import main.states.ComportamientoPerezoso;
 import main.states.ComportamientoZonzo;
 
 public class Laberinto {
@@ -37,7 +38,7 @@ public class Laberinto {
 		return mapa;
 	}
 
-	public void imprimirLaberintoAXml(Integer nroTick){
+	public void imprimirLaberintoAXml(String salida, Integer nroTick){
 		StringBuffer sb = new StringBuffer();
 		sb.append("<laberinto ancho=\"" + this.cantCol + "\" alto=\"" + this.cantCol +"\" nodoAncho=\"30\" " +
 				"nodoAlto=\"30\" inicioPacman=\""+getPosicionInicioPacman()+"\" inicioFantasmas=\""+getPosicionInicioFantasma()+"\">\n");
@@ -63,7 +64,7 @@ public class Laberinto {
 		}
 		sb.append("</laberinto>");
 		try {
-			FileWriter fw = new FileWriter(new File(Constantes.ARCHIVO_LABERINTO_SALIDA + nroTick.toString() + ".xml"));
+			FileWriter fw = new FileWriter(new File(salida + nroTick.toString() + ".xml"));
 			fw.write(sb.toString());
 			fw.close();
 		} catch (IOException e) {
@@ -198,7 +199,7 @@ public class Laberinto {
 		return this.mapa.get(id);
 	}
 
-	public void imprimirActoresAXml(Integer nroTick) {
+	public void imprimirActoresAXml(String salida, Integer nroTick) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<juego posicionPacman=\"" + Pacman.getInstance().getCeldaActual().getId() +"\" fila=\""+Pacman.getInstance().getCeldaActual().getFila() + "\" " +
 				" columna=\""+Pacman.getInstance().getCeldaActual().getColumna()+"\" sentido=\""+Pacman.getInstance().getSentido()+"\" puntaje=\"122\" finJuego=\"false\">\n");
@@ -208,7 +209,7 @@ public class Laberinto {
 		}
 		sb.append("</juego>");
 		try {
-			FileWriter fw = new FileWriter(new File(Constantes.ARCHIVO_PERSONAJES_SALIDA + nroTick.toString() + ".xml"));
+			FileWriter fw = new FileWriter(new File(salida + nroTick.toString() + ".xml"));
 			fw.write(sb.toString());
 			fw.close();
 		} catch (IOException e) {
@@ -216,15 +217,23 @@ public class Laberinto {
 		}
 	}
 
-	public void inicializarActores() {
+	public void inicializarActores(Integer cantZonzos, Integer cantBuscadores, Integer cantPerezosos) {
 		Pacman.getInstance().setCeldaActual(this.getCelda(getPosicionInicioPacman()));
 		Celda celda = this.getCelda(getPosicionInicioFantasma());
 		Integer i = 0;
-//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_AMARILLO, celda, ComportamientoBuscador.getInstance(), i.toString()));
-//		i++;
-//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_ROJO, celda, ComportamientoZonzo.getInstance(), i.toString()));
-//		i++;
-//		this.getFantasmas().add(new Fantasma(Constantes.COLOR_VERDE, celda, ComportamientoZonzo.getInstance(), i.toString()));
+		Integer j;
+		for (j = 0; j<cantZonzos; j++){
+			this.getFantasmas().add(new Fantasma(celda, ComportamientoZonzo.getInstance(), i.toString()));
+			i++;
+		}
+		for (j = 0; j<cantBuscadores; j++){
+			this.getFantasmas().add(new Fantasma(celda, ComportamientoBuscador.getInstance(), i.toString()));
+			i++;
+		}
+		for (j = 0; j<cantPerezosos; j++){
+			this.getFantasmas().add(new Fantasma(celda, ComportamientoPerezoso.getInstance(), i.toString()));
+			i++;
+		}
 		Pacman.getInstance().getCeldaActual().visitarPorPacman();
 	}
 

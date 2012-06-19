@@ -1,2 +1,6 @@
 TiempoMuerto = 10
 TiempoPresa = 5
+ArchivoLaberinto = './././res/escenariosxml/escenario2.xml'
+DirSalida = './././res/'
+DirOrdenes = './././res/ordenes/'
+fantasma buscador

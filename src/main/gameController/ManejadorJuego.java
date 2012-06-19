@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import main.config.ConfiguracionPrincipal;
 import main.model.Laberinto;
 
 public class ManejadorJuego {
@@ -22,7 +23,8 @@ public class ManejadorJuego {
 	private static final Pattern inicioFantasmas = Pattern.compile("\\sinicioFantasmas=\"(\\d+)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	
 	
-	public ManejadorJuego(String input){
+	public ManejadorJuego(String configuracion){
+		String input = ConfiguracionPrincipal.getInstance().getArchivoLaberinto();
 		FileReader fr;
 		BufferedReader br;
 		try {
@@ -34,7 +36,11 @@ public class ManejadorJuego {
 			while ((line = br.readLine()) != null){
 				this.laberinto.parsearNodo(line);
 			}
-			this.laberinto.inicializarActores();
+			Integer cantZonzos = ConfiguracionPrincipal.getInstance().getCantFantasmaZonzo();
+			Integer cantBuscadores = ConfiguracionPrincipal.getInstance().getCantFantasmaBuscador();
+			Integer cantPerezosos = ConfiguracionPrincipal.getInstance().getCantFantasmaPerezoso();
+			
+			this.laberinto.inicializarActores(cantZonzos, cantBuscadores, cantPerezosos);
 		fr.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -83,6 +89,8 @@ public class ManejadorJuego {
 		Boolean finished = false;
 		ManejadorTurnos.getInstance().setLaberinto(laberinto);
 		ManejadorReglas.getInstance().setLaberinto(laberinto);
+		String salidaActores = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "PersonajesTick";
+		String salidaLaberinto = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "LaberintoTick";
 		while (!finished){
 			System.out.println(ManejadorTurnos.getInstance().getTickNumber());
 			ManejadorTurnos.getInstance().ejecutarTurnoPacman();
@@ -109,8 +117,8 @@ public class ManejadorJuego {
 			}else {
 				System.out.println("Fin, no hay movimientos del pacman");
 			}
-			this.laberinto.imprimirActoresAXml(ManejadorTurnos.getInstance().getTickNumber()-1);
-			this.laberinto.imprimirLaberintoAXml(ManejadorTurnos.getInstance().getTickNumber()-1);
+			this.laberinto.imprimirActoresAXml(salidaActores, ManejadorTurnos.getInstance().getTickNumber()-1);
+			this.laberinto.imprimirLaberintoAXml(salidaLaberinto, ManejadorTurnos.getInstance().getTickNumber()-1);
 		}
 	}
 	
