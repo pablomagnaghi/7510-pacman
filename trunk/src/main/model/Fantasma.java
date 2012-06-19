@@ -12,18 +12,16 @@ public class Fantasma{
 	private Estado estado;
 	private Comportamiento comportamiento;
 	private Integer ira;
-	private String color;
 	private Celda celdaActual;
 	private String id;
 	private String sentido;
 	private String siguienteCelda;
 	private String celdaAnterior;
 
-	public Fantasma(String color, Celda inicial, Comportamiento comportamiento, String id){
+	public Fantasma(Celda inicial, Comportamiento comportamiento, String id){
 		this.comportamiento = comportamiento;
 		this.setEstado(EstadoCazador.getInstance());
 		this.ira = Constantes.IRA_ESTADO_NORMAL;
-		this.setColor(color);
 		this.celdaActual = inicial;
 		this.id =(id);
 	}
@@ -93,14 +91,6 @@ public class Fantasma{
 		this.comportamiento = comportamiento;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public Celda getCeldaActual() {
 		return celdaActual;
 	}
@@ -135,7 +125,11 @@ public class Fantasma{
 	}
 
 	public void setSiguienteCelda(String siguienteCelda) {
-		this.siguienteCelda = siguienteCelda;
+		if (!siguienteCelda.isEmpty()){
+			this.siguienteCelda = siguienteCelda;
+		} else {
+			this.siguienteCelda = this.celdaActual.getId();
+		}
 	}
 
 	public String getDireccionMasCercanaAPacman() {

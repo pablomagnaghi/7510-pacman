@@ -23,9 +23,9 @@ public class ComportamientoBuscador extends Comportamiento{
 	@Override
 	public String getNombre(Fantasma fantasma) {
 		if (fantasma.getIra() == Constantes.IRA_ESTADO_FURIOSO){
-			return Constantes.BUSCADOR;
-		} else {
 			return Constantes.BUSCADOR_T;
+		} else {
+			return Constantes.BUSCADOR;
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import main.config.ConfiguracionPrincipal;
 import main.config.Constantes;
 import main.model.Celda;
 import main.model.Fantasma;
@@ -25,10 +26,10 @@ public class ManejadorTurnos {
 	private Integer turnoPacman = 1;
 	private Boolean hayMas = Boolean.TRUE;
 
-	public String leerTurnoPacman(){
+	public String leerTurnoPacman(String archivoPacman){
 		String direccion = null;
 		try {
-			FileReader fr = new FileReader(new File(Constantes.ARCHIVO_PACMAN + turnoPacman + ".txt"));
+			FileReader fr = new FileReader(new File(archivoPacman + turnoPacman + ".txt"));
 			this.turnoPacman++;
 			String line;
 			BufferedReader br = new BufferedReader(fr);
@@ -85,7 +86,7 @@ public class ManejadorTurnos {
 	}
 
 	private void moverPacman() {
-		String direccionPacman = leerTurnoPacman();
+		String direccionPacman = leerTurnoPacman(ConfiguracionPrincipal.getInstance().getDirectorioOrdenes() + "Ordenes");
 		Boolean resultadoDeMovimiento;
 		resultadoDeMovimiento = Pacman.getInstance().mover(direccionPacman); 
 		if (resultadoDeMovimiento){
