@@ -62,6 +62,7 @@ public abstract class Constantes {
 	public static final Integer ACCION_ESCAPAR 				= 0;
 	public static final Integer ACCION_ACERCAR 				= 1;
 	public static final String ARCHIVO_ENTRADA_PACMAN		= "pacmanTick";
-	public static final Integer SEGUNDOS_PARA_INTENTAR		= 15;
+	public static final String PACMAN_STRING				= "pacman";
+	
 	
 }
