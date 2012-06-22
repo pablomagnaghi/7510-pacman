@@ -1,11 +1,7 @@
 package tests;
 
-import static org.junit.Assert.*;
-
-import main.config.*;
-import main.model.*;
-import main.gameController.*;
-import main.states.*;
+import static org.junit.Assert.assertTrue;
+import main.config.ConfiguracionPrincipal;
 
 import org.junit.Test;
 
