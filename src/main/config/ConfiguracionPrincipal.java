@@ -12,6 +12,7 @@ public class ConfiguracionPrincipal {
 	
 	private Integer tiempoMuerto;
 	private Integer tiempoPresa;
+	private Integer tiempoPacman;
 	private Integer cantFantasmaPerezoso = 0;
 	private Integer cantFantasmaBuscador = 0;
 	private Integer cantFantasmaZonzo = 0;
@@ -23,7 +24,7 @@ public class ConfiguracionPrincipal {
 	private String directorioSalida;
 	private String directorioOrdenes;
 	
-	private static Pattern tiemposPattern = Pattern.compile("Tiempo(Muerto|Presa)\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	private static Pattern tiemposPattern = Pattern.compile("Tiempo(Muerto|Presa|Pacman)\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static Pattern fantasmasPattern = Pattern.compile("fantasma\\s*(zonzo|perezoso|buscador)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static Pattern directoriosPattern = Pattern.compile("(ArchivoLaberinto|DirSalida|DirOrdenes)\\s*=\\s*'([^']*)'", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static Pattern distanciaPattern = Pattern.compile("distancia\\s*(buscador|perezoso|zonzo)\\s*=\\s*(\\d+)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
@@ -57,15 +58,17 @@ public class ConfiguracionPrincipal {
 	
 	private Boolean matchTiempos(String line){
 		Boolean result = Boolean.FALSE;
-		if (this.tiempoMuerto != null && this.tiempoPresa != null){
+		if (this.tiempoMuerto != null && this.tiempoPresa != null && this.tiempoPacman != null){
 			return result;
 		}
 		Matcher matcher = tiemposPattern.matcher(line);
 		if (matcher.find()){
 			if (Constantes.PRESA.equals(matcher.group(1))){
 				this.setTiempoPresa(new Integer(matcher.group(2)));
-			} else {
+			} else if (Constantes.MUERTO.equals(matcher.group(1))){
 				this.setTiempoMuerto(new Integer(matcher.group(2)));
+			} else {
+				this.setTiempoPacman(new Integer(matcher.group(2)));
 			}
 			result = Boolean.TRUE;
 		}
@@ -192,6 +195,14 @@ public class ConfiguracionPrincipal {
 
 	private void setDistanciaZonzo(Integer distanciZonzo) {
 		this.distanciaZonzo = distanciZonzo;
+	}
+
+	public Integer getTiempoPacman() {
+		return tiempoPacman;
+	}
+
+	private void setTiempoPacman(Integer tiempoPacman) {
+		this.tiempoPacman = tiempoPacman;
 	}
 	
 }

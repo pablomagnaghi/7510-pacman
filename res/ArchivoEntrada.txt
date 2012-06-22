@@ -1,5 +1,6 @@
 Tiempomuerto = 10
 Tiempopresa = 25
+Tiempopacman = 2
 ArchivoLaberinto = '/home/luis/desarrollo/java/tecnicas-g5/res/escenariosxml/escenario2.xml'
 DirSalida = '/home/luis/desarrollo/java/tecnicas-g5/'
 DirOrdenes = '/home/luis/desarrollo/java/tecnicas-g5/res/ordenes/'

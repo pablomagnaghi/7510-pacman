@@ -90,7 +90,7 @@ public class ManejadorTurnos {
 			if (direccionPacman == null){
 				System.out.println("Esperando nueva orden...");
 				try {
-					Thread.sleep(Constantes.SEGUNDOS_PARA_INTENTAR * 1000);
+					Thread.sleep(ConfiguracionPrincipal.getInstance().getTiempoPacman() * 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
