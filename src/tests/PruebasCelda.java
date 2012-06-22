@@ -1,11 +1,8 @@
 package tests;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertTrue;
 import main.config.Constantes;
-import main.model.Bolita;
 import main.model.Celda;
-import main.states.BolitaGrande;
 import main.states.BolitaNormal;
 import main.states.BolitaNula;
 

@@ -1,13 +1,8 @@
 package tests;
 
-import static org.junit.Assert.*;
-
-import java.util.Collection;
-
-import main.config.*;
-import main.model.*;
-import main.gameController.*;
-import main.states.*;
+import static org.junit.Assert.assertTrue;
+import main.gameController.ManejadorJuego;
+import main.model.Laberinto;
 
 import org.junit.Test;
 
