@@ -116,8 +116,8 @@ public class ManejadorJuego {
 			if (isPacmanMoving){
 				this.laberinto.imprimirActoresAXml(salidaActores, tickNumber);
 				this.laberinto.imprimirLaberintoAXml(salidaLaberinto, tickNumber);
+				tickNumber++;
 			}
-			tickNumber++;
 		}
 	}
 
