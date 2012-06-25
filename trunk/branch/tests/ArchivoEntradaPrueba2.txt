@@ -1,0 +1,11 @@
+Tiempomuerto = 10
+Tiempopresa = 25
+ArchivoLaberinto = 'src\tests\escenario2Nbolitas.xml'
+DirSalida = 'C:\Users\Metal\Desktop\aa\'
+DirOrdenes = 'C:\Users\Metal\workspace\TpTecnicas\res\ordenes\'
+distanciaBuscador = 3
+distanciaPerezoso = 2
+distanciaZonzo = 1
+fantasma buscador
+fantasma zonzo
+fantasma perezoso
