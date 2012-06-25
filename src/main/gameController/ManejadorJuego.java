@@ -92,6 +92,7 @@ public class ManejadorJuego {
 		ManejadorReglas.getInstance().setLaberinto(laberinto);
 		String salidaActores = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "PersonajesTick";
 		String salidaLaberinto = ConfiguracionPrincipal.getInstance().getDirectorioSalida() + "LaberintoTick";
+		Integer tickNumber = 1;
 		while (!finished){
 			Boolean isPacmanMoving = ManejadorTurnos.getInstance().ejecutarTurnoPacman();
 			ManejadorReglas.getInstance().chequearActoresMuertos();
@@ -113,9 +114,10 @@ public class ManejadorJuego {
 				}
 			}
 			if (isPacmanMoving){
-				this.laberinto.imprimirActoresAXml(salidaActores, ManejadorTurnos.getInstance().getTickNumber()-1);
-				this.laberinto.imprimirLaberintoAXml(salidaLaberinto, ManejadorTurnos.getInstance().getTickNumber()-1);
+				this.laberinto.imprimirActoresAXml(salidaActores, tickNumber);
+				this.laberinto.imprimirLaberintoAXml(salidaLaberinto, tickNumber);
 			}
+			tickNumber++;
 		}
 	}
 
