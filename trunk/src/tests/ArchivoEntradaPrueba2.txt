@@ -1,5 +1,6 @@
 Tiempomuerto = 10
 Tiempopresa = 25
+Tiempopacman = 2
 ArchivoLaberinto = 'src\tests\escenario2Nbolitas.xml'
 DirSalida = 'C:\Users\Metal\Desktop\aa\'
 DirOrdenes = 'C:\Users\Metal\workspace\TpTecnicas\res\ordenes\'
