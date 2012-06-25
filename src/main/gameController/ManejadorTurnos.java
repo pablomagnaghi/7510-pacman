@@ -53,11 +53,13 @@ public class ManejadorTurnos {
 		return null;
 	}
 
-	public void ejecutarTurnoPacman(){
-		if (this.getTickNumber() % Constantes.PACMAN_VELOCIDAD == 0){
+	public Boolean ejecutarTurnoPacman(){
+		Boolean isPacmanMoving = this.getTickNumber() % Constantes.PACMAN_VELOCIDAD == 0;
+		if (isPacmanMoving){
 			System.out.println("Moviendo pacman");
 			moverPacman();
 		}
+		return isPacmanMoving;
 	}
 	
 	public void ejecutarTurnoFantasma(){
