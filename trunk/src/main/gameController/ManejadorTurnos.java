@@ -29,14 +29,13 @@ public class ManejadorTurnos {
 		String direccion = null;
 		try {
 			FileReader fr = new FileReader(new File(archivoPacman + turnoPacman + ".xml"));
-			this.turnoPacman++;
 			String line;
 			BufferedReader br = new BufferedReader(fr);
 			while ((line = br.readLine()) != null && direccion == null){
 				direccion = parsearOrden(line);
 			}
-
 			fr.close();
+			this.turnoPacman++;
 		} catch (IOException e) {
 		}
 		return direccion;
@@ -53,8 +52,8 @@ public class ManejadorTurnos {
 		return null;
 	}
 
-	public Boolean ejecutarTurnoPacman(){
-		Boolean isPacmanMoving = this.getTickNumber() % Constantes.PACMAN_VELOCIDAD == 0;
+	public Boolean ejecutarTurnoPacman(Integer tickNumber){
+		Boolean isPacmanMoving = tickNumber % Constantes.PACMAN_VELOCIDAD == 0;
 		if (isPacmanMoving){
 			System.out.println("Moviendo pacman");
 			moverPacman();
