@@ -44,7 +44,7 @@ public class ManejadorTurnos {
 
 
 	private String parsearOrden(String line) {
-		Pattern ordenPat = Pattern.compile("<pacman\\s*direccion=\"([^\"]*)\"/>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Pattern ordenPat = Pattern.compile("<pacman\\s*direccion=\"([^\"]*)\"\\s*/>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 		Matcher m = ordenPat.matcher(line);
 		if (m.find()){
 			return m.group(1);
