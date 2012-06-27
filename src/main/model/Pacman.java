@@ -51,6 +51,9 @@ public class Pacman {
 	}
 
 	public String getSentido() {
+		if (this.sentido == null){
+			return "derecha";
+		}
 		return this.sentido;
 	}
 

@@ -41,6 +41,7 @@ public class ManejadorReglas implements Observer{
 			if (fantasma.getCeldaActual().equals(Pacman.getInstance().getCeldaActual())){
 				if (cronometroPresaContando){
 					fantasma.eliminar();
+					System.out.println("Eliminando fantasma");
 				} else {
 					Pacman.getInstance().eliminar();
 					this.setFinJuego(Boolean.TRUE);
