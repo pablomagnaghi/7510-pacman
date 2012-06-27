@@ -26,6 +26,7 @@ public class ManejadorTurnos {
 	private Integer turnoPacman = 1;
 
 	public String leerTurnoPacman(String archivoPacman){
+		System.out.println("esperando por " + archivoPacman + turnoPacman + ".xml");
 		String direccion = null;
 		try {
 			FileReader fr = new FileReader(new File(archivoPacman + turnoPacman + ".xml"));
@@ -55,7 +56,6 @@ public class ManejadorTurnos {
 	public Boolean ejecutarTurnoPacman(Integer tickNumber){
 		Boolean isPacmanMoving = tickNumber % Constantes.PACMAN_VELOCIDAD == 0;
 		if (isPacmanMoving){
-			System.out.println("Moviendo pacman");
 			moverPacman();
 		}
 		return isPacmanMoving;
@@ -70,8 +70,8 @@ public class ManejadorTurnos {
 					((this.getTickNumber() % Constantes.FANTASMA_VELOCIDAD_MOLESTO == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_MOLESTO))
 					||
 					((this.getTickNumber() % Constantes.FANTASMA_VELOCIDAD_NORMAL == 0) && fantasma.getIra().equals(Constantes.IRA_ESTADO_NORMAL))){
-				System.out.println("Moviendo fantasma");
 				fantasma.mover();
+				System.out.println("Moviendo fantasma");
 				Celda celda = this.laberinto.getCelda(fantasma.getSiguienteCelda());
 				fantasma.setCeldaActual(celda);
 			}
@@ -89,7 +89,6 @@ public class ManejadorTurnos {
 		while (direccionPacman == null){
 			direccionPacman = leerTurnoPacman(ConfiguracionPrincipal.getInstance().getDirectorioOrdenes() + Constantes.ARCHIVO_ENTRADA_PACMAN);
 			if (direccionPacman == null){
-				System.out.println("Esperando nueva orden...");
 				try {
 					Thread.sleep(ConfiguracionPrincipal.getInstance().getTiempoPacman() * 1000);
 				} catch (InterruptedException e) {
@@ -106,6 +105,7 @@ public class ManejadorTurnos {
 		}
 		if (resultadoDeMovimiento){
 			Celda celda = this.laberinto.getCelda(Pacman.getInstance().getSiguienteCelda());
+			System.out.println("Pacman moviendo de celda : "+Pacman.getInstance().getCeldaActual().getId()+"  a :" + celda.getId());
 			Pacman.getInstance().setCeldaActual(celda);
 			Pacman.getInstance().setSentido(this.sentido);
 			celda.visitarPorPacman();

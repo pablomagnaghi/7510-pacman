@@ -114,10 +114,12 @@ public class ManejadorJuego {
 					}
 				}
 			}
-			if (isPacmanMoving){
-				this.laberinto.imprimirActoresAXml(salidaActores, outputNumber);
+			if (isPacmanMoving || tickNumber == 1 || finished){
+				this.laberinto.imprimirActoresAXml(salidaActores, outputNumber, finished);
 				this.laberinto.imprimirLaberintoAXml(salidaLaberinto, outputNumber);
-				outputNumber++;
+				if (isPacmanMoving){
+					outputNumber++;
+				}
 			}
 			tickNumber++;
 		}
